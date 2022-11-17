@@ -1,35 +1,43 @@
 #include <casacore/casa/Arrays.h>
-// #incu
 #include <iostream>
+#include "helpers.hpp"
+#include "masks.hpp"
+
+Timer stop_watch;
 
 int main() {
-  int SIZE = 10;
+  int SIZE = 4096;
 
-  std::cout << std::endl << "Vector" << std::endl;
-  casacore::Vector<casacore::Float> vector(SIZE);
-  casacore::Vector<casacore::Float> weight(SIZE);
+  casacore::Matrix<casacore::Float> matrix(SIZE,SIZE);
+  casacore::Matrix<casacore::Float> weight(SIZE,SIZE);
+
   float range = 10.0;
   float offset = -4.0;
-  for (int i = 0; i < SIZE; ++i) {
-    vector(i) = offset + range * (rand() / (float)RAND_MAX);
-    weight(i) = 1;
+  for (auto i = 0; i < SIZE; i++) {
+    for (auto j = 0; j < SIZE; j++) {
+      matrix(i, j) = offset + range * (rand() / (float)RAND_MAX);
+      weight(i, j) = 1;
+    }
   }
 
   casacore::IPosition minPos, maxPos;
   float min, max;
 
-  casacore::minMax(min, max, vector);
+  stop_watch.start_timer();
+  casacore::minMaxMasked(min, max, minPos, maxPos, matrix, weight);
+  stop_watch.stop_timer();
 
-  std::cout << "Min: " << min << "Max: " << max << std::endl;
+  auto duration = stop_watch.time_elapsed();
 
-  casacore::minMaxMasked(min, max, minPos, maxPos, vector, weight);
+  std::cout << "Time taken for casacore minMaxMasked: " << duration << " ms" << std::endl << std::endl;
 
-  std::cout << "Min: " << min << "Max: " << max << std::endl;
+  stop_watch.start_timer();
+  minMaxMaskedWithOpenMp(min, max, minPos, maxPos, matrix, weight);
+  stop_watch.stop_timer();
 
-  for (int i = 0; i < SIZE; ++i) {
-    std::cout << vector(i) << " ";
-  }
-  std::cout << std::endl;
+  duration = stop_watch.time_elapsed();
+
+  std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms" << std::endl;
 
   return 0;
 
