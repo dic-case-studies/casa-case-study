@@ -1,7 +1,7 @@
 #include <casacore/casa/Arrays.h>
 #include <iostream>
 #include "helpers.hpp"
-#include "masks.hpp"
+#include "ArrayMathOpt.hpp"
 
 Timer stop_watch;
 
@@ -32,7 +32,7 @@ int main() {
   std::cout << "Time taken for casacore minMaxMasked: " << duration << " ms" << std::endl << std::endl;
 
   stop_watch.start_timer();
-  minMaxMaskedWithOpenMp(min, max, minPos, maxPos, matrix, weight);
+  minMaxMaskedParallel(min, max, minPos, maxPos, matrix, weight);
   stop_watch.stop_timer();
 
   duration = stop_watch.time_elapsed();

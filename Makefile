@@ -1,16 +1,29 @@
-CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -I /opt/homebrew/include -L /opt/homebrew/lib -lcasa_casa -lcasa_meas -lcasa_measures -L /opt/homebrew/Cellar/libomp/15.0.4/lib -Xpreprocessor -fopenmp -lomp -fsanitize=address -g
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+		OMPFLAGS += -fopenmp
+endif
+ifeq ($(UNAME_S),Darwin)
+		OMPFLAGS += -Xpreprocessor -fopenmp -lomp
+endif
+
+CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -march=native
+DEBUGFLAGS=-fsanitize=address -g
+
+LIBS= -lcasa_casa -lcasa_meas -lcasa_measures
 
 CXX=g++
 
-all: build/main.o build/masks.o
-	${CXX} ${CXXFLAGS} -o main-app build/main.o build/masks.o
+all: build/casa-bench build/min-max-bench
 
-build/main.o: main.cpp include/masks.hpp include/helpers.hpp
-	${CXX} ${CXXFLAGS} -c main.cpp -o $@
+build/main: src/main.cpp include/ArrayMathOpt.hpp include/helpers.hpp
 
-build/masks.o: src/masks.cpp
-	${CXX} ${CXXFLAGS} -c src/masks.cpp -o $@
+build/min-max-bench: src/min-max-bench.cpp
+
+build/%: src/%.cpp
+	$(CXX) -o $@ $< $(CXXFLAGS) $(OMPFLAGS) $(OPT) $(LIBS)
 
 clean:
 	rm -rf build/* *app
+
+.PHONY: all clean
 
