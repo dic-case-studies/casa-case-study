@@ -6,15 +6,17 @@ set -x
 declare -a SIZE=(1024 2048 4096 8192 16384 32768)
 # declare -a SIZE=(1024 2048)
 
-rm -f stat/min-max-bench-result.txt stat/min-max-bench-stats.csv stat/min-max-bench-performance.png
+bench=$1
+
+rm -f stat/$bench-result.txt stat/$bench-stats.csv stat/$bench-performance.png
 
 for sz in "${SIZE[@]}"
 do
   echo "min-max $sz"
-  ./build/min-max-bench $sz >> stat/min-max-bench-result.txt
+  ./build/$bench $sz >> stat/$bench-result.txt
 done
 
-cat stat/min-max-bench-result.txt | awk '                          \
+cat stat/$bench-result.txt | awk '                          \
   /Matrix dim/ {                              \
     size = $NF;                               \
   }                                           \
@@ -28,20 +30,20 @@ cat stat/min-max-bench-result.txt | awk '                          \
     avx = $(NF-1);                            \
     printf("%s, %s, %s, %s\n", size, golden, sse, avx); \
   }                                           \
-' > stat/min-max-bench-stats.csv
+' > stat/$bench-stats.csv
 
 echo "                                            \
   reset;                                          \
   set terminal png enhanced large font \"Helvetica,10\"; \
                                                          \
-  set title \"minMax Benchmark\";                        \
+  set title \"$bench Benchmark\";                        \
   set xlabel \"Matrix Dim\";                             \
   set ylabel \"Execution time(us)\";                     \
   set key left top;                                      \
   set logscale x;                                        \
   set logscale y;                                        \
                                                          \
-  plot \"stat/min-max-bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
-       \"stat/min-max-bench-stats.csv\" using 1:3 with linespoint title \"SSE\",    \
-       \"stat/min-max-bench-stats.csv\" using 1:4 with linespoint title \"AVX\";    \
-" | gnuplot > stat/min-max-bench-performance.png
+  plot \"stat/$bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
+       \"stat/$bench-stats.csv\" using 1:3 with linespoint title \"SSE\",    \
+       \"stat/$bench-stats.csv\" using 1:4 with linespoint title \"AVX\";    \
+" | gnuplot > stat/$bench-performance.png
