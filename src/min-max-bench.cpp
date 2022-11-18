@@ -11,10 +11,10 @@
 #include <float.h>
 #include <immintrin.h>
 #include <iostream>
+#include <limits.h>
 #include <math.h>
 #include <smmintrin.h>
 #include <xmmintrin.h>
-#include <limits.h>
 
 #include <chrono>
 
@@ -55,27 +55,20 @@ void golden(float *arr, size_t N, float &min, size_t &minPos, float &max,
             size_t &maxPos) {
   min = FLT_MAX;
   max = FLT_MIN;
-#pragma omp parallel for
   for (size_t i = 0; i < N; i++) {
     if (min > arr[i]) {
-#pragma omp critical
-      {
-        min = arr[i];
-        minPos = i;
-      }
+      min = arr[i];
+      minPos = i;
     }
     if (max < arr[i]) {
-#pragma omp critical
-      {
-        max = arr[i];
-        maxPos = i;
-      }
+      max = arr[i];
+      maxPos = i;
     }
   }
 }
 
 void print_vector(const __m128i v) {
-   uint32_t temp[4];
+  uint32_t temp[4];
   _mm_storeu_si128((__m128i_u *)temp, v);
   for (int i = 0; i < 4; i++) {
     std::cout << temp[i] << " ";
@@ -84,7 +77,7 @@ void print_vector(const __m128i v) {
 }
 
 void print_vector(const __m128 v) {
-   float temp[4];
+  float temp[4];
   _mm_storeu_ps(temp, v);
   for (int i = 0; i < 4; i++) {
     std::cout << temp[i] << " ";
@@ -109,7 +102,10 @@ void simd_sse(float *arr, size_t N, float &min, size_t &minPos, float &max,
 
   __m128i inc = _mm_set1_epi32(simd_width);
 
-  for (size_t i = simd_width; i < N; i += simd_width) {
+  size_t quot = N / simd_width;
+  size_t limit = quot * simd_width;
+
+  for (size_t i = simd_width; i < limit; i += simd_width) {
     idx_r = _mm_add_epi32(idx_r, inc);
     arr_r = _mm_loadu_ps(arr + i);
 
@@ -155,6 +151,18 @@ void simd_sse(float *arr, size_t N, float &min, size_t &minPos, float &max,
       minPos = std::min(minPos, size_t(min_pos_temp[i]));
     }
   }
+
+  // Min max for reminder
+  for (size_t i = limit; i < N; i++) {
+    if (max < arr[i]) {
+      max = arr[i];
+      maxPos = i;
+    }
+    if (min > arr[i]) {
+      min = arr[i];
+      minPos = i;
+    }
+  }
 }
 
 void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
@@ -174,13 +182,18 @@ void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
 
   __m256i inc = _mm256_set1_epi32(simd_width);
 
-  for (size_t i = simd_width; i < N; i += simd_width) {
+  size_t quot = N / simd_width;
+  size_t limit = quot * simd_width;
+
+  for (size_t i = simd_width; i < limit; i += simd_width) {
     idx_r = _mm256_add_epi32(idx_r, inc);
     arr_r = _mm256_loadu_ps(arr + i);
 
-  // _CMP_LT_OS
-    __m256i min_mask = _mm256_castps_si256(_mm256_cmp_ps(arr_r, min_r, _CMP_LT_OQ));
-    __m256i max_mask = _mm256_castps_si256(_mm256_cmp_ps(arr_r, max_r, _CMP_GT_OQ));
+    // _CMP_LT_OS
+    __m256i min_mask =
+        _mm256_castps_si256(_mm256_cmp_ps(arr_r, min_r, _CMP_LT_OQ));
+    __m256i max_mask =
+        _mm256_castps_si256(_mm256_cmp_ps(arr_r, max_r, _CMP_GT_OQ));
 
     min_r = _mm256_min_ps(min_r, arr_r);
     min_pos_r = _mm256_blendv_epi8(min_pos_r, idx_r, min_mask);
@@ -224,8 +237,19 @@ void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
       minPos = std::min(minPos, size_t(min_pos_temp[i]));
     }
   }
-}
 
+  // Min max for reminder
+  for (size_t i = limit; i < N; i++) {
+    if (max < arr[i]) {
+      max = arr[i];
+      maxPos = i;
+    }
+    if (min > arr[i]) {
+      min = arr[i];
+      minPos = i;
+    }
+  }
+}
 
 int main(int argc, char **argv) {
   if (argc < 2) {
@@ -236,7 +260,7 @@ int main(int argc, char **argv) {
   size_t N = x * x;
   float *arr = new float[N];
   time_t seed = time(0);
-  // time_t seed = 1668765940;
+  // time_t seed = 1668773523;
   std::cout << "Seed: " << seed << std::endl;
   srand(seed);
 
