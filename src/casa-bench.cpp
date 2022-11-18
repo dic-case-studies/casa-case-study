@@ -34,10 +34,16 @@ int main() {
   stop_watch.start_timer();
   minMaxMaskedParallel(min, max, minPos, maxPos, matrix, weight);
   stop_watch.stop_timer();
+  
+  duration = stop_watch.time_elapsed();
+  std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms" << std::endl;
+
+  stop_watch.start_timer();
+  minMaxMaskedSIMD(min, max, minPos, maxPos, matrix, weight);
+  stop_watch.stop_timer();
 
   duration = stop_watch.time_elapsed();
-
-  std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms" << std::endl;
+  std::cout << "Time taken for SIMD minMaxMasked: " << duration << " ms" << std::endl;
 
   return 0;
 

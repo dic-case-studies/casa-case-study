@@ -17,3 +17,7 @@ brew tap ska-sa/tap
 1. Min Max SIMD
 
 ![Stats](./stat/min-max-bench-performance.png)
+
+2. Min Max Masked SIMD
+
+![Stats](./stat/min-max-masked-bench-performance.png)

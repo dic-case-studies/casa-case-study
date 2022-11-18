@@ -6,7 +6,7 @@ ifeq ($(UNAME_S),Darwin)
 		OMPFLAGS += -Xpreprocessor -fopenmp -lomp
 endif
 
-CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -march=native
+CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -march=native -O3
 DEBUGFLAGS=-fsanitize=address -g
 
 LIBS= -lcasa_casa -lcasa_meas -lcasa_measures
