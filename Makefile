@@ -7,13 +7,12 @@ endif
 
 processor := $(shell uname -m)
 ifeq ($(processor),$(filter $(processor),aarch64 arm64))
-    ARCH_CFLAGS += -march=armv8-a+fp+simd+crc
+    ARCH_CFLAGS += -march=armv8-a+fp+simd+crc -D arm64 
 	ifeq ($(UNAME_S),Darwin)
-		EXTRA_FLAGS += -L /opt/homebrew/Cellar/libomp/15.0.4/lib 
+		EXTRA_FLAGS += -L /opt/homebrew/Cellar/libomp/15.0.4/lib
 	endif
 else ifeq ($(processor),$(filter $(processor),i386 x86_64))
-    ARCH_CFLAGS=-march=native
-	EXTRA_FLAGS=''
+    ARCH_CFLAGS += -march=native -D amd64 
 endif
 
 CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -O3
@@ -28,7 +27,7 @@ all: build build/casa-bench build/min-max-bench build/min-max-pos-bench build/mi
 build/main: src/main.cpp include/ArrayMathOpt.hpp include/helpers.hpp
 
 build/%: src/%.cpp
-	$(CXX) -o $@ $< $(CXXFLAGS) $(OMPFLAGS) $(LIBS) $(EXTRA_FLAGS) $(ARCH_CFLAGS)
+	$(CXX) -o $@ $< $(CXXFLAGS) $(OMPFLAGS) $(LIBS) $(ARCH_CFLAGS) $(EXTRA_FLAGS) 
 
 clean:
 	rm -rf build/* *app
