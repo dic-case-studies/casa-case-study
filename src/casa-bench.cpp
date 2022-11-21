@@ -3,7 +3,9 @@
 #include <assert.h>
 #include <casacore/casa/Arrays.h>
 #include <cfloat>
+#include <ctime>
 #include <iostream>
+#include <ostream>
 
 int main(int argc, char **argv) {
   if (argc < 2) {
@@ -15,8 +17,9 @@ int main(int argc, char **argv) {
 
   casacore::Matrix<casacore::Float> matrix(SIZE, SIZE);
   casacore::Matrix<casacore::Float> weight(SIZE, SIZE);
-
-  srand(time(0));
+  auto seed = time(0);
+  std::cout << "seed = " << seed << std::endl;
+  srand(seed);
 
   float range = 10.0;
   float offset = -4.0;

@@ -40,7 +40,7 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
     const float *arrRaw = array.data();
     const float *weightRaw = weight.data();
 
-#pragma omp parallel for
+#pragma omp parallel for shared(minv, maxv, minp, maxp, arrRaw, weightRaw)
     for (size_t i = 0; i < n; ++i) {
       T tmp = arrRaw[i] * weightRaw[i];
 #pragma omp critical
@@ -48,6 +48,8 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
         if (tmp < minv) {
           minv = tmp;
           minp = i;
+        } else if (tmp == minv) {
+          minp = std::min(minp, i);
         }
       }
 #pragma omp critical
@@ -55,6 +57,8 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
         if (tmp > maxv) {
           maxv = tmp;
           maxp = i;
+        } else if (tmp == maxv) {
+          maxp = std::min(maxp, i);
         }
       }
     }
