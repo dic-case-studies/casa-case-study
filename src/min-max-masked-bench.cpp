@@ -11,15 +11,15 @@
 #include <limits.h>
 #include <math.h>
 
-#ifdef x64
-  #include <emmintrin.h>
-  #include <immintrin.h>
-  #include <smmintrin.h>
-  #include <xmmintrin.h>
+#ifdef amd64
+#include <emmintrin.h>
+#include <immintrin.h>
+#include <smmintrin.h>
+#include <xmmintrin.h>
 #endif
 
 #ifdef arm64
-  #include "sse2neon.h"
+#include "sse2neon.h"
 #endif
 
 void golden(float *arr, float *weight, size_t N, float &min, size_t &minPos,
