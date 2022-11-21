@@ -1,7 +1,3 @@
-/*
-  g++ -o min-max min-max.cc -O3 -march=native
-  ./min-max <N>
-*/
 #include "helpers.hpp"
 #include <algorithm>
 #include <assert.h>
@@ -10,14 +6,17 @@
 #include <climits>
 #include <cstddef>
 #include <ctime>
-#include <emmintrin.h>
 #include <float.h>
-#include <immintrin.h>
 #include <iostream>
 #include <limits.h>
 #include <math.h>
-#include <smmintrin.h>
-#include <xmmintrin.h>
+
+// #include <emmintrin.h>
+// #include <immintrin.h>
+// #include <smmintrin.h>
+// #include <xmmintrin.h>
+
+#include "sse2neon.h"
 
 void golden(float *arr, size_t N, float &min, size_t &minPos, float &max,
             size_t &maxPos) {
