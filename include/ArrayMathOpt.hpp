@@ -7,12 +7,14 @@ using casacore::ArrayConformanceError;
 using casacore::ArrayError;
 using casacore::IPosition;
 
-#ifdef __AVX__
-#include <emmintrin.h>
-#include <immintrin.h>
-#include <smmintrin.h>
-#include <xmmintrin.h>
-#endif
+// #ifdef __AVX__
+// #include <emmintrin.h>
+// #include <immintrin.h>
+// #include <smmintrin.h>
+// #include <xmmintrin.h>
+// #endif
+
+#include "sse2neon.h"
 
 template <typename T, typename Alloc>
 void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,

@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: include/sse2neon.h
+  checksum: fc7ec4082408d5cba7ffb7e1dc01f31a1b5183ff38bc4650532899de74dac67f
+version: "1.0"
