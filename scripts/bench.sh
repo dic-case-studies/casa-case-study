@@ -4,8 +4,10 @@ set -e
 set -x
 
 declare -a SIZE=(1024 2048 4096 8192 16384 32768)
-# declare -a SIZE=(1024 2048)
+# declare -a SIZE=(1024 2048 4096 8192)
+# declare -a SIZE=(4096)
 
+mkdir -p stat
 bench=$1
 
 rm -f stat/$bench-result.txt stat/$bench-stats.csv stat/$bench-performance.png

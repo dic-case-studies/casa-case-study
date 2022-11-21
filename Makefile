@@ -13,7 +13,7 @@ LIBS= -lcasa_casa -lcasa_meas -lcasa_measures
 
 CXX=g++
 
-all: build/casa-bench build/min-max-bench build/min-max-masked-bench
+all: build build/casa-bench build/min-max-bench build/min-max-pos-bench build/min-max-masked-bench 
 
 build/main: src/main.cpp include/ArrayMathOpt.hpp include/helpers.hpp
 
@@ -22,6 +22,9 @@ build/%: src/%.cpp
 
 clean:
 	rm -rf build/* *app
+
+dir:
+	mkdir -p build
 
 .PHONY: all clean
 

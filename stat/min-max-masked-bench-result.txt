@@ -1,36 +1,36 @@
-Seed: 1668777227
+Seed: 1669022325
 Matrix dim: 1024
-Elapsed time golden: 1530 us
-min: 0.000604036 max 1003.28 minPos 158210 maxPos: 502429
-Elapsed time SIMD SSE: 553 us
+Elapsed time golden: 1808 us
+min: 5.61534e-05 max 1002.89 minPos 1044102 maxPos: 157424
+Elapsed time SIMD SSE: 543 us
 Elapsed time SIMD AVX: 342 us
-Seed: 1668777227
+Seed: 1669022325
 Matrix dim: 2048
-Elapsed time golden: 8901 us
-min: 1.08753e-05 max 1004.56 minPos 4159428 maxPos: 1487111
-Elapsed time SIMD SSE: 5143 us
-Elapsed time SIMD AVX: 3806 us
-Seed: 1668777227
+Elapsed time golden: 7372 us
+min: 4.45425e-06 max 1004.21 minPos 2927983 maxPos: 1767187
+Elapsed time SIMD SSE: 2444 us
+Elapsed time SIMD AVX: 1995 us
+Seed: 1669022325
 Matrix dim: 4096
-Elapsed time golden: 30028 us
-min: 1.08753e-05 max 1004.69 minPos 4159428 maxPos: 15515428
-Elapsed time SIMD SSE: 10762 us
-Elapsed time SIMD AVX: 7299 us
-Seed: 1668777228
+Elapsed time golden: 27839 us
+min: 4.45425e-06 max 1004.27 minPos 2927983 maxPos: 6754279
+Elapsed time SIMD SSE: 9090 us
+Elapsed time SIMD AVX: 8047 us
+Seed: 1669022325
 Matrix dim: 8192
-Elapsed time golden: 252228 us
-min: 9.27618e-07 max 1004.9 minPos 9110736 maxPos: 31159957
-Elapsed time SIMD SSE: 37745 us
-Elapsed time SIMD AVX: 29579 us
-Seed: 1668777230
+Elapsed time golden: 113190 us
+min: 4.45425e-06 max 1004.86 minPos 2927983 maxPos: 27283203
+Elapsed time SIMD SSE: 50668 us
+Elapsed time SIMD AVX: 43866 us
+Seed: 1669022326
 Matrix dim: 16384
-Elapsed time golden: 568064 us
-min: 5.30942e-07 max 1004.96 minPos 32006773 maxPos: 171225164
-Elapsed time SIMD SSE: 156840 us
-Elapsed time SIMD AVX: 113497 us
-Seed: 1668777235
+Elapsed time golden: 424478 us
+min: 6.57755e-07 max 1004.91 minPos 241564245 maxPos: 173149834
+Elapsed time SIMD SSE: 144992 us
+Elapsed time SIMD AVX: 116781 us
+Seed: 1669022331
 Matrix dim: 32768
-Elapsed time golden: 8.16326e+06 us
-min: 5.30942e-07 max 1004.98 minPos 1061185513 maxPos: 283387084
-Elapsed time SIMD SSE: 691946 us
-Elapsed time SIMD AVX: 463127 us
+Elapsed time golden: 6.63043e+06 us
+min: 5.30942e-07 max 1004.98 minPos 174706410 maxPos: 470649804
+Elapsed time SIMD SSE: 542704 us
+Elapsed time SIMD AVX: 414098 us

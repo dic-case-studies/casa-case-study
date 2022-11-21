@@ -43,15 +43,16 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
 #pragma omp parallel for
     for (size_t i = 0; i < n; ++i) {
       T tmp = arrRaw[i] * weightRaw[i];
-      if (tmp < minv) {
 #pragma omp critical
-        {
+      {
+        if (tmp < minv) {
           minv = tmp;
           minp = i;
         }
-      } else if (tmp > maxv) {
+      }
 #pragma omp critical
-        {
+      {
+        if (tmp > maxv) {
           maxv = tmp;
           maxp = i;
         }
@@ -80,8 +81,8 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
 }
 
 #ifdef __AVX__
-inline void minMaxAVX(const float *arr, const float *weight, size_t N, float &min,
-                      size_t &minPos, float &max, size_t &maxPos) {
+inline void minMaxAVX(const float *arr, const float *weight, size_t N,
+                      float &min, size_t &minPos, float &max, size_t &maxPos) {
 
   const int simd_width = 8;
   __m256 arr_r = _mm256_loadu_ps(arr);

@@ -1,15 +1,22 @@
-#include <casacore/casa/Arrays.h>
-#include <iostream>
-#include "helpers.hpp"
 #include "ArrayMathOpt.hpp"
+#include "helpers.hpp"
+#include <assert.h>
+#include <casacore/casa/Arrays.h>
+#include <cfloat>
+#include <iostream>
 
-Timer stop_watch;
+int main(int argc, char **argv) {
+  if (argc < 2) {
+    std::cerr << " usage: ./casa-bench <N>" << std::endl;
+    return 1;
+  }
+  size_t SIZE = atoi(argv[1]);
+  std::cout << "Matrix dim: " << SIZE << std::endl;
 
-int main() {
-  int SIZE = 4096;
+  casacore::Matrix<casacore::Float> matrix(SIZE, SIZE);
+  casacore::Matrix<casacore::Float> weight(SIZE, SIZE);
 
-  casacore::Matrix<casacore::Float> matrix(SIZE,SIZE);
-  casacore::Matrix<casacore::Float> weight(SIZE,SIZE);
+  srand(time(0));
 
   float range = 10.0;
   float offset = -4.0;
@@ -20,31 +27,73 @@ int main() {
     }
   }
 
-  casacore::IPosition minPos, maxPos;
-  float min, max;
+  casacore::IPosition expectedMinPos, expectedMaxPos;
+  float expectedMin, expectedMax;
+  {
 
-  stop_watch.start_timer();
-  casacore::minMaxMasked(min, max, minPos, maxPos, matrix, weight);
-  stop_watch.stop_timer();
+    WallClock t;
+    casacore::minMaxMasked(expectedMin, expectedMax, expectedMinPos,
+                           expectedMaxPos, matrix, weight);
 
-  auto duration = stop_watch.time_elapsed();
+    auto duration = t.elapsedTime();
 
-  std::cout << "Time taken for casacore minMaxMasked: " << duration << " ms" << std::endl << std::endl;
+    std::cout << "Time taken for casacore minMaxMasked: " << duration << " ms"
+              << std::endl
+              << std::endl;
+  }
+  ///// Running openmp version of minMaxMasked /////
 
-  stop_watch.start_timer();
-  minMaxMaskedParallel(min, max, minPos, maxPos, matrix, weight);
-  stop_watch.stop_timer();
-  
-  duration = stop_watch.time_elapsed();
-  std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms" << std::endl;
+  {
+    casacore::IPosition actualMinPos, actualMaxPos;
+    float actualMin, actualMax;
 
-  stop_watch.start_timer();
-  minMaxMaskedSIMD(min, max, minPos, maxPos, matrix, weight);
-  stop_watch.stop_timer();
+    WallClock t;
+    minMaxMaskedParallel(actualMin, actualMax, actualMinPos, actualMaxPos,
+                         matrix, weight);
 
-  duration = stop_watch.time_elapsed();
-  std::cout << "Time taken for SIMD minMaxMasked: " << duration << " ms" << std::endl;
+    auto duration = t.elapsedTime();
+    std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms"
+              << std::endl;
+
+    /////Asserting on openmp results /////
+
+    assert_float(expectedMin, actualMin, "openmp min");
+    assert_float(expectedMax, actualMax, "openmp max");
+    assert(expectedMinPos.isEqual(actualMinPos));
+    assert(expectedMaxPos.isEqual(actualMaxPos));
+
+    std::cout << "Assertion passed for openmp" << std::endl;
+  }
+
+  {
+    casacore::IPosition actualMinPos, actualMaxPos;
+    float actualMin, actualMax;
+    ///// Running SIMD version of minMaxMasked /////
+    actualMin = FLT_MAX;
+    actualMax = FLT_MIN;
+
+    WallClock t;
+
+    minMaxMaskedSIMD(actualMin, actualMax, actualMinPos, actualMaxPos, matrix,
+                     weight);
+
+    auto duration = t.elapsedTime();
+    std::cout << "Time taken for SIMD minMaxMasked: " << duration << " ms"
+              << std::endl;
+
+    /////Asserting on SIMD results /////
+
+    assert_float(expectedMin, actualMin, "SIMD min");
+    assert_float(expectedMax, actualMax, "SIMD max");
+
+    assert(expectedMinPos.isEqual(actualMinPos));
+    assert(expectedMaxPos.isEqual(actualMaxPos));
+
+    std::cout << "Assertion passed for SIMD" << std::endl;
+  }
+  std::cout << std::endl;
+  std::cout << "-----------------------------" << std::endl;
+  std::cout << std::endl;
 
   return 0;
-
 }

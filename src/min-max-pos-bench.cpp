@@ -5,6 +5,8 @@
 #include "helpers.hpp"
 #include <algorithm>
 #include <assert.h>
+#include <cfloat>
+#include <chrono>
 #include <climits>
 #include <cstddef>
 #include <ctime>
@@ -17,20 +19,17 @@
 #include <smmintrin.h>
 #include <xmmintrin.h>
 
-#include <chrono>
-
-void golden(float *arr, float *weight, size_t N, float &min, size_t &minPos,
-            float &max, size_t &maxPos) {
+void golden(float *arr, size_t N, float &min, size_t &minPos, float &max,
+            size_t &maxPos) {
   min = FLT_MAX;
   max = FLT_MIN;
   for (size_t i = 0; i < N; i++) {
-    float val = arr[i] * weight[i];
-    if (min > val) {
-      min = val;
+    if (min > arr[i]) {
+      min = arr[i];
       minPos = i;
     }
-    if (max < val) {
-      max = val;
+    if (max < arr[i]) {
+      max = arr[i];
       maxPos = i;
     }
   }
@@ -54,15 +53,13 @@ void print_vector(const __m128 v) {
   std::cout << std::endl;
 }
 
-void simd_sse(float *arr, float *weight, size_t N, float &min, size_t &minPos,
-              float &max, size_t &maxPos) {
+void simd_sse(float *arr, size_t N, float &min, size_t &minPos, float &max,
+              size_t &maxPos) {
 
   assert(N < (size_t)INT_MAX);
 
   const int simd_width = 4;
   __m128 arr_r = _mm_loadu_ps(arr);
-  __m128 weight_r = _mm_loadu_ps(weight);
-  arr_r = _mm_mul_ps(arr_r, weight_r);
   __m128 max_r = arr_r;
   __m128 min_r = arr_r;
 
@@ -79,8 +76,6 @@ void simd_sse(float *arr, float *weight, size_t N, float &min, size_t &minPos,
   for (size_t i = simd_width; i < limit; i += simd_width) {
     idx_r = _mm_add_epi32(idx_r, inc);
     arr_r = _mm_loadu_ps(arr + i);
-    weight_r = _mm_loadu_ps(weight + i);
-    arr_r = _mm_mul_ps(arr_r, weight_r);
 
     __m128i min_mask = _mm_castps_si128(_mm_cmplt_ps(arr_r, min_r));
     __m128i max_mask = _mm_castps_si128(_mm_cmpgt_ps(arr_r, max_r));
@@ -127,27 +122,24 @@ void simd_sse(float *arr, float *weight, size_t N, float &min, size_t &minPos,
 
   // Min max for reminder
   for (size_t i = limit; i < N; i++) {
-    float val = arr[i] * weight[i];
-    if (max < val) {
-      max = val;
+    if (max < arr[i]) {
+      max = arr[i];
       maxPos = i;
     }
-    if (min > val) {
-      min = val;
+    if (min > arr[i]) {
+      min = arr[i];
       minPos = i;
     }
   }
 }
 
-void simd_avx(float *arr, float *weight, size_t N, float &min, size_t &minPos,
-              float &max, size_t &maxPos) {
+void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
+              size_t &maxPos) {
 
   assert(N < (size_t)INT_MAX);
 
   const int simd_width = 8;
   __m256 arr_r = _mm256_loadu_ps(arr);
-  __m256 weight_r = _mm256_loadu_ps(weight);
-  arr_r = _mm256_mul_ps(arr_r, weight_r);
   __m256 max_r = arr_r;
   __m256 min_r = arr_r;
 
@@ -164,8 +156,6 @@ void simd_avx(float *arr, float *weight, size_t N, float &min, size_t &minPos,
   for (size_t i = simd_width; i < limit; i += simd_width) {
     idx_r = _mm256_add_epi32(idx_r, inc);
     arr_r = _mm256_loadu_ps(arr + i);
-    weight_r = _mm256_loadu_ps(weight + i);
-    arr_r = _mm256_mul_ps(arr_r, weight_r);
 
     // _CMP_LT_OS
     __m256i min_mask =
@@ -218,13 +208,12 @@ void simd_avx(float *arr, float *weight, size_t N, float &min, size_t &minPos,
 
   // Min max for reminder
   for (size_t i = limit; i < N; i++) {
-    float val = arr[i] * weight[i];
-    if (max < val) {
-      max = val;
+    if (max < arr[i]) {
+      max = arr[i];
       maxPos = i;
     }
-    if (min > val) {
-      min = val;
+    if (min > arr[i]) {
+      min = arr[i];
       minPos = i;
     }
   }
@@ -238,7 +227,6 @@ int main(int argc, char **argv) {
   size_t x = atoi(argv[1]);
   size_t N = x * x;
   float *arr = new float[N];
-  float *weight = new float[N];
   time_t seed = time(0);
   // time_t seed = 1668773523;
   std::cout << "Seed: " << seed << std::endl;
@@ -248,7 +236,6 @@ int main(int argc, char **argv) {
   float range = 1000.0f;
   for (size_t i = 0; i < N; i++) {
     arr[i] = offset + range * (rand() / (float)RAND_MAX);
-    weight[i] = (rand() / (float)RAND_MAX);
   }
 
   std::cout << "Matrix dim: " << x << std::endl;
@@ -258,8 +245,7 @@ int main(int argc, char **argv) {
   {
     WallClock t;
 
-    golden(arr, weight, N, minExpected, minPosExpected, maxExpected,
-           maxPosExpected);
+    golden(arr, N, minExpected, minPosExpected, maxExpected, maxPosExpected);
 
     std::cout << "Elapsed time golden: " << t.elapsedTime() << " us"
               << std::endl;
@@ -268,12 +254,12 @@ int main(int argc, char **argv) {
   std::cout << "min: " << minExpected << " max " << maxExpected << " minPos "
             << minPosExpected << " maxPos: " << maxPosExpected << std::endl;
 
-  float minActual = FLT_MIN, maxActual = FLT_MIN;
+  float minActual = FLT_MAX, maxActual = FLT_MIN;
   size_t minPosActual = 0, maxPosActual = 0;
   {
     WallClock t;
 
-    simd_sse(arr, weight, N, minActual, minPosActual, maxActual, maxPosActual);
+    simd_sse(arr, N, minActual, minPosActual, maxActual, maxPosActual);
 
     std::cout << "Elapsed time SIMD SSE: " << t.elapsedTime() << " us"
               << std::endl;
@@ -284,12 +270,12 @@ int main(int argc, char **argv) {
   assert_int(minPosExpected, minPosActual, "min_pos");
   assert_int(maxPosExpected, maxPosActual, "max_pos");
 
-  minActual = FLT_MIN, maxActual = FLT_MIN;
+  minActual = FLT_MAX, maxActual = FLT_MIN;
   minPosActual = 0, maxPosActual = 0;
   {
     WallClock t;
 
-    simd_avx(arr, weight, N, minActual, minPosActual, maxActual, maxPosActual);
+    simd_avx(arr, N, minActual, minPosActual, maxActual, maxPosActual);
 
     std::cout << "Elapsed time SIMD AVX: " << t.elapsedTime() << " us"
               << std::endl;
