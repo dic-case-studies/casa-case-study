@@ -1,0 +1,78 @@
+Running min-max-pos-bench GOLDEN 1024
+Seed: 1669114411
+Matrix dim: 1024
+Elapsed time golden: 995 us
+min: 5.00014 max 1005 minPos 155734 maxPos: 42799
+
+ Performance counter stats for 'system wide':
+
+              0.34 Joules power/energy-pkg/                                           
+
+       0.012506693 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 2048
+Seed: 1669114411
+Matrix dim: 2048
+Elapsed time golden: 2097 us
+min: 5.00009 max 1005 minPos 2443409 maxPos: 42799
+
+ Performance counter stats for 'system wide':
+
+              1.17 Joules power/energy-pkg/                                           
+
+       0.030248654 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 4096
+Seed: 1669114411
+Matrix dim: 4096
+Elapsed time golden: 8467 us
+min: 5.00009 max 1005 minPos 2443409 maxPos: 42799
+
+ Performance counter stats for 'system wide':
+
+              5.24 Joules power/energy-pkg/                                           
+
+       0.111016214 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 8192
+Seed: 1669114412
+Matrix dim: 8192
+Elapsed time golden: 33770 us
+min: 5.00001 max 1005 minPos 21578447 maxPos: 26436783
+
+ Performance counter stats for 'system wide':
+
+             17.70 Joules power/energy-pkg/                                           
+
+       0.435626962 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 16384
+Seed: 1669114412
+Matrix dim: 16384
+Elapsed time golden: 134871 us
+min: 5 max 1005 minPos 233349988 maxPos: 26436783
+
+ Performance counter stats for 'system wide':
+
+             78.02 Joules power/energy-pkg/                                           
+
+       1.709281784 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 32768
+Seed: 1669114414
+Matrix dim: 32768
+Elapsed time golden: 537255 us
+min: 5 max 1005 minPos 188373400 maxPos: 35548997
+
+ Performance counter stats for 'system wide':
+
+            298.47 Joules power/energy-pkg/                                           
+
+       6.693036588 seconds time elapsed
+
+----------------------------

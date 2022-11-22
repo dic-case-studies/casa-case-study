@@ -62,3 +62,34 @@ benchCASA.sh
 4. Casa benchchmark with Openmp and SIMD
 
 ![Stats](./stat/Ryzen5800X/casa-bench-performance.png)
+
+## Energy
+
+### Ryzen 3700X
+
+1. MinMax with OpenMp and SIMD
+
+![Stats](./stat/Ryzen3700X/energy/min-max-bench-performance.png)
+
+2. MinMaxPos with OpenMp and SIMD
+
+![Stats](./stat/Ryzen3700X/energy/min-max-pos-bench-performance.png)
+
+3. MinMaxMasked with OpenMp and SIMD
+
+![Stats](./stat/Ryzen3700X/energy/min-max-masked-bench-performance.png)
+
+### Ryzen 5800X
+
+1. MinMax with OpenMp and SIMD
+
+![Stats](./stat/Ryzen5800X/energy/min-max-bench-performance.png)
+
+2. MinMaxPos with OpenMp and SIMD
+
+![Stats](./stat/Ryzen5800X/energy/min-max-pos-bench-performance.png)
+
+3. MinMaxMasked with OpenMp and SIMD
+
+![Stats](./stat/Ryzen5800X/energy/min-max-masked-bench-performance.png)
+

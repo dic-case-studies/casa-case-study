@@ -1,0 +1,78 @@
+Running min-max-bench GOLDEN 1024
+Seed: 1669114333
+Matrix dim: 1024
+Elapsed time golden: 242 us
+min: 5.00009 max 1005
+
+ Performance counter stats for 'system wide':
+
+              0.26 Joules power/energy-pkg/                                           
+
+       0.010414995 seconds time elapsed
+
+----------------------------
+Running min-max-bench GOLDEN 2048
+Seed: 1669114333
+Matrix dim: 2048
+Elapsed time golden: 1051 us
+min: 5.00009 max 1005
+
+ Performance counter stats for 'system wide':
+
+              1.10 Joules power/energy-pkg/                                           
+
+       0.029050625 seconds time elapsed
+
+----------------------------
+Running min-max-bench GOLDEN 4096
+Seed: 1669114333
+Matrix dim: 4096
+Elapsed time golden: 4268 us
+min: 5.00004 max 1005
+
+ Performance counter stats for 'system wide':
+
+              4.79 Joules power/energy-pkg/                                           
+
+       0.107902897 seconds time elapsed
+
+----------------------------
+Running min-max-bench GOLDEN 8192
+Seed: 1669114333
+Matrix dim: 8192
+Elapsed time golden: 17108 us
+min: 5 max 1005
+
+ Performance counter stats for 'system wide':
+
+             16.44 Joules power/energy-pkg/                                           
+
+       0.419651237 seconds time elapsed
+
+----------------------------
+Running min-max-bench GOLDEN 16384
+Seed: 1669114333
+Matrix dim: 16384
+Elapsed time golden: 66996 us
+min: 5 max 1005
+
+ Performance counter stats for 'system wide':
+
+             73.69 Joules power/energy-pkg/                                           
+
+       1.637644599 seconds time elapsed
+
+----------------------------
+Running min-max-bench GOLDEN 32768
+Seed: 1669114335
+Matrix dim: 32768
+Elapsed time golden: 264437 us
+min: 5 max 1005
+
+ Performance counter stats for 'system wide':
+
+            292.47 Joules power/energy-pkg/                                           
+
+       6.550242646 seconds time elapsed
+
+----------------------------
