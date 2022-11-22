@@ -203,6 +203,7 @@ int main(int argc, char **argv)
 
   std::cout << "Matrix dim: " << x << std::endl;
 
+#ifdef GOLDEN
   float minExpected = FLT_MAX, maxExpected = FLT_MIN;
   {
     WallClock t;
@@ -214,7 +215,9 @@ int main(int argc, char **argv)
   }
 
   std::cout << "min: " << minExpected << " max " << maxExpected << std::endl;
+#endif
 
+#ifdef SSE
   float minActual = FLT_MAX, maxActual = FLT_MIN;
   {
     WallClock t;
@@ -224,10 +227,14 @@ int main(int argc, char **argv)
     std::cout << "Elapsed time SIMD SSE: " << t.elapsedTime() << " us"
               << std::endl;
   }
+#endif
 
+#ifdef ASSERT
   assert_float(maxExpected, maxActual, "max");
   assert_float(minExpected, minActual, "min");
+#endif
 
+#ifdef AVX
   minActual = 0.0f, maxActual = 0.0f;
   {
     WallClock t;
@@ -237,9 +244,12 @@ int main(int argc, char **argv)
     std::cout << "Elapsed time SIMD AVX: " << t.elapsedTime() << " us"
               << std::endl;
   }
+#endif
 
+#ifdef ASSERT
   assert_float(maxExpected, maxActual, "max");
   assert_float(minExpected, minActual, "min");
+#endif
 
   delete[] arr;
 }

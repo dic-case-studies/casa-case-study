@@ -15,7 +15,7 @@ else ifeq ($(processor),$(filter $(processor),i386 x86_64))
     ARCH_CFLAGS += -march=native -D amd64 
 endif
 
-CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -O3
+CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -O3 -D GOLDEN -D SSE -D AVX -D ASSERT
 DEBUGFLAGS=-fsanitize=address -g
 
 LIBS= -lcasa_casa -lcasa_meas -lcasa_measures
@@ -25,7 +25,7 @@ CXX=g++
 all: dir build/casa-bench build/min-max-bench build/min-max-pos-bench build/min-max-masked-bench 
 
 build/%: src/%.cpp
-	$(CXX) -o $@ $< $(CXXFLAGS) $(OMPFLAGS) $(LIBS) $(ARCH_CFLAGS) $(EXTRA_FLAGS) 
+	$(CXX) -o $@ $< $(CXXFLAGS) $(OMPFLAGS) $(LIBS) $(ARCH_CFLAGS) $(EXTRA_FLAGS) $(OPT)
 
 clean:
 	rm -rf build/* *app

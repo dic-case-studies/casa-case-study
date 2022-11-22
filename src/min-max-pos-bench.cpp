@@ -243,6 +243,7 @@ int main(int argc, char **argv) {
 
   std::cout << "Matrix dim: " << x << std::endl;
 
+#ifdef GOLDEN
   float minExpected = FLT_MAX, maxExpected = FLT_MIN;
   size_t minPosExpected = 0, maxPosExpected = 0;
   {
@@ -256,7 +257,9 @@ int main(int argc, char **argv) {
 
   std::cout << "min: " << minExpected << " max " << maxExpected << " minPos "
             << minPosExpected << " maxPos: " << maxPosExpected << std::endl;
+#endif
 
+#ifdef SSE
   float minActual = FLT_MAX, maxActual = FLT_MIN;
   size_t minPosActual = 0, maxPosActual = 0;
   {
@@ -267,12 +270,16 @@ int main(int argc, char **argv) {
     std::cout << "Elapsed time SIMD SSE: " << t.elapsedTime() << " us"
               << std::endl;
   }
+#endif
 
+#ifdef ASSERT
   assert_float(maxExpected, maxActual, "max");
   assert_float(minExpected, minActual, "min");
   assert_int(minPosExpected, minPosActual, "min_pos");
   assert_int(maxPosExpected, maxPosActual, "max_pos");
+#endif
 
+#ifdef AVX
   minActual = FLT_MAX, maxActual = FLT_MIN;
   minPosActual = 0, maxPosActual = 0;
   {
@@ -283,11 +290,14 @@ int main(int argc, char **argv) {
     std::cout << "Elapsed time SIMD AVX: " << t.elapsedTime() << " us"
               << std::endl;
   }
+#endif
 
+#ifdef ASSERT
   assert_float(maxExpected, maxActual, "max");
   assert_float(minExpected, minActual, "min");
   assert_int(minPosExpected, minPosActual, "min_pos");
   assert_int(maxPosExpected, maxPosActual, "max_pos");
+#endif
 
   delete[] arr;
 }
