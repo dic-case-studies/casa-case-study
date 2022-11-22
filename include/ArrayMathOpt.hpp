@@ -18,18 +18,22 @@ using casacore::IPosition;
 #include "sse2neon.h"
 #endif
 
+// Implementation of Casacore:minMaxMasked with OpenMP
 template <typename T, typename Alloc>
 void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
                           IPosition &maxPos, const Array<T, Alloc> &array,
-                          const Array<T, Alloc> &weight) {
+                          const Array<T, Alloc> &weight)
+{
   size_t n = array.nelements();
-  if (n == 0) {
+  if (n == 0)
+  {
     throw(ArrayError("void minMax(T &min, T &max, IPosition &minPos,"
                      "IPosition &maxPos, const Array<T, Alloc> &array) - "
                      "const Array<T, Alloc> &weight) - "
                      "Array has no elements"));
   }
-  if (!array.shape().isEqual(weight.shape())) {
+  if (!array.shape().isEqual(weight.shape()))
+  {
     throw(ArrayConformanceError("void minMaxMasked(T &min, T &max,"
                                 "IPosition &minPos, IPosition &maxPos, "
                                 "const Array<T, Alloc> &array, "
@@ -40,41 +44,68 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
   size_t maxp = 0;
   T minv = array.data()[0] * weight.data()[0];
   T maxv = minv;
-  if (array.contiguousStorage() && weight.contiguousStorage()) {
+  if (array.contiguousStorage() && weight.contiguousStorage())
+  {
     const float *arrRaw = array.data();
     const float *weightRaw = weight.data();
-
-#pragma omp parallel for shared(minv, maxv, minp, maxp, arrRaw, weightRaw)
-    for (size_t i = 0; i < n; ++i) {
-      T tmp = arrRaw[i] * weightRaw[i];
-#pragma omp critical
+#pragma omp parallel
+    {
+      size_t minp_local = minp;
+      T minv_local = minv;
+      size_t maxp_local = maxp;
+      T maxv_local = maxv;
+#pragma omp for nowait
+      for (size_t i = 1; i < n; i++)
       {
-        if (tmp < minv) {
-          minv = tmp;
-          minp = i;
-        } else if (tmp == minv) {
-          minp = std::min(minp, i);
+        T tmp = arrRaw[i] * weightRaw[i];
+        if (tmp < minv_local)
+        {
+          minv_local = tmp;
+          minp_local = i;
+        }
+        if (tmp > maxv_local)
+        {
+          maxv_local = tmp;
+          maxp_local = i;
         }
       }
 #pragma omp critical
       {
-        if (tmp > maxv) {
-          maxv = tmp;
-          maxp = i;
-        } else if (tmp == maxv) {
-          maxp = std::min(maxp, i);
+        if (minv_local < minv)
+        {
+          minv = minv_local;
+          minp = minp_local;
+        }
+        else if (minv_local == minv)
+        {
+          minp = std::min(minp, minp_local);
+        }
+        if (maxv_local > maxv)
+        {
+          maxv = maxv_local;
+          maxp = maxp_local;
+        }
+        else if (maxv_local == maxv)
+        {
+          maxp = std::min(maxp, maxp_local);
         }
       }
     }
-  } else {
+  }
+  else
+  {
     typename Array<T, Alloc>::const_iterator iter = array.begin();
     typename Array<T, Alloc>::const_iterator witer = weight.begin();
-    for (size_t i = 0; i < n; ++i, ++iter, ++witer) {
+    for (size_t i = 0; i < n; ++i, ++iter, ++witer)
+    {
       T tmp = *iter * *witer;
-      if (tmp < minv) {
+      if (tmp < minv)
+      {
         minv = tmp;
         minp = i;
-      } else if (tmp > maxv) {
+      }
+      else if (tmp > maxv)
+      {
         maxv = tmp;
         maxp = i;
       }
@@ -88,6 +119,8 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
   maxVal = maxv;
 }
 
+
+// Implementation of simple minMaxPos function, using SIMD AVX, 
 #ifdef __AVX__
 inline void minMaxAVX(const float *arr, const float *weight, size_t N,
                       float &min, size_t &minPos, float &max, size_t &maxPos) {
@@ -176,6 +209,7 @@ inline void minMaxAVX(const float *arr, const float *weight, size_t N,
 }
 #endif
 
+// Fallback function for SIMD, for data types other than float
 template <typename T, typename Alloc>
 void minMaxMaskedSIMD(T &minVal, T &maxVal, IPosition &minPos,
                       IPosition &maxPos, const Array<T, Alloc> &array,
@@ -233,6 +267,7 @@ void minMaxMaskedSIMD(T &minVal, T &maxVal, IPosition &minPos,
   maxVal = maxv;
 }
 
+// Implementation of cassacore:minMaxMasked function using SIMD AVX, for data type float
 template <typename Alloc>
 void minMaxMaskedSIMD(float &minVal, float &maxVal, IPosition &minPos,
                       IPosition &maxPos, const Array<float, Alloc> &array,

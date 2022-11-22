@@ -22,9 +22,7 @@ LIBS= -lcasa_casa -lcasa_meas -lcasa_measures
 
 CXX=g++
 
-all: build build/casa-bench build/min-max-bench build/min-max-pos-bench build/min-max-masked-bench 
-
-build/main: src/main.cpp include/ArrayMathOpt.hpp include/helpers.hpp
+all: dir build/casa-bench build/min-max-bench build/min-max-pos-bench build/min-max-masked-bench 
 
 build/%: src/%.cpp
 	$(CXX) -o $@ $< $(CXXFLAGS) $(OMPFLAGS) $(LIBS) $(ARCH_CFLAGS) $(EXTRA_FLAGS) 
