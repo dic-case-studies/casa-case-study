@@ -1,0 +1,72 @@
+Running min-max-bench AVX 1024
+Seed: 1669111901
+Matrix dim: 1024
+Elapsed time SIMD AVX: 63 us
+
+ Performance counter stats for 'system wide':
+
+              1.00 Joules power/energy-pkg/                                           
+
+       0.031991548 seconds time elapsed
+
+----------------------------
+Running min-max-bench AVX 2048
+Seed: 1669111901
+Matrix dim: 2048
+Elapsed time SIMD AVX: 812 us
+
+ Performance counter stats for 'system wide':
+
+              1.78 Joules power/energy-pkg/                                           
+
+       0.052739564 seconds time elapsed
+
+----------------------------
+Running min-max-bench AVX 4096
+Seed: 1669111901
+Matrix dim: 4096
+Elapsed time SIMD AVX: 3633 us
+
+ Performance counter stats for 'system wide':
+
+              4.39 Joules power/energy-pkg/                                           
+
+       0.119693881 seconds time elapsed
+
+----------------------------
+Running min-max-bench AVX 8192
+Seed: 1669111901
+Matrix dim: 8192
+Elapsed time SIMD AVX: 12439 us
+
+ Performance counter stats for 'system wide':
+
+             16.01 Joules power/energy-pkg/                                           
+
+       0.435101294 seconds time elapsed
+
+----------------------------
+Running min-max-bench AVX 16384
+Seed: 1669111902
+Matrix dim: 16384
+Elapsed time SIMD AVX: 47073 us
+
+ Performance counter stats for 'system wide':
+
+             62.24 Joules power/energy-pkg/                                           
+
+       1.694886585 seconds time elapsed
+
+----------------------------
+Running min-max-bench AVX 32768
+Seed: 1669111904
+Matrix dim: 32768
+Elapsed time SIMD AVX: 186704 us
+
+ Performance counter stats for 'system wide':
+
+            246.63 Joules power/energy-pkg/                                           
+
+       6.747571300 seconds time elapsed
+
+----------------------------

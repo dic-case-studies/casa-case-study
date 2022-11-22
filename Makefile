@@ -15,7 +15,7 @@ else ifeq ($(processor),$(filter $(processor),i386 x86_64))
     ARCH_CFLAGS += -march=native -D amd64 
 endif
 
-CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -O3 -D GOLDEN -D SSE -D AVX -D ASSERT
+CXXFLAGS=-std=c++14 -Wall -Wextra -pedantic -I include -O3 -DGOLDEN -DSSE -DAVX -DASSERT
 DEBUGFLAGS=-fsanitize=address -g
 
 LIBS= -lcasa_casa -lcasa_meas -lcasa_measures

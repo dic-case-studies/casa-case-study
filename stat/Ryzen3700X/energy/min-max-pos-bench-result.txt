@@ -1,0 +1,373 @@
+Running min-max-pos-bench GOLDEN 1024
+Seed: 1669110715
+Matrix dim: 1024
+Elapsed time golden: 936 us
+min: 5.00085 max 1005 minPos 281665 maxPos: 240891
+
+ Performance counter stats for 'system wide':
+
+              1.18 Joules power/energy-pkg/                                           
+
+       0.032353858 seconds time elapsed
+
+Running min-max-pos-bench GOLDEN 2048
+Seed: 1669110715
+Matrix dim: 2048
+Elapsed time golden: 3923 us
+min: 5.00032 max 1005 minPos 2576006 maxPos: 240891
+
+ Performance counter stats for 'system wide':
+
+              1.80 Joules power/energy-pkg/                                           
+
+       0.043647791 seconds time elapsed
+
+Running min-max-pos-bench GOLDEN 4096
+Seed: 1669110715
+Matrix dim: 4096
+Elapsed time golden: 15992 us
+min: 5.00006 max 1005 minPos 6367550 maxPos: 240891
+
+ Performance counter stats for 'system wide':
+
+              5.13 Joules power/energy-pkg/                                           
+
+       0.132398165 seconds time elapsed
+
+Running min-max-pos-bench GOLDEN 8192
+Seed: 1669110715
+Matrix dim: 8192
+Elapsed time golden: 63443 us
+min: 5.00003 max 1005 minPos 57011358 maxPos: 25826739
+
+ Performance counter stats for 'system wide':
+
+             18.88 Joules power/energy-pkg/                                           
+
+       0.486384617 seconds time elapsed
+
+Running min-max-pos-bench GOLDEN 16384
+Seed: 1669110716
+Matrix dim: 16384
+Elapsed time golden: 251373 us
+min: 5 max 1005 minPos 135816766 maxPos: 2506903
+
+ Performance counter stats for 'system wide':
+
+             79.38 Joules power/energy-pkg/                                           
+
+       2.156814486 seconds time elapsed
+
+Running min-max-pos-bench GOLDEN 32768
+Seed: 1669110718
+Matrix dim: 32768
+Elapsed time golden: 1.00783e+06 us
+min: 5 max 1005 minPos 775002671 maxPos: 3315341
+
+ Performance counter stats for 'system wide':
+
+            276.93 Joules power/energy-pkg/                                           
+
+       7.497803996 seconds time elapsed
+
+Running min-max-pos-bench SSE 1024
+Seed: 1669110726
+Matrix dim: 1024
+Elapsed time SIMD SSE: 580 us
+
+ Performance counter stats for 'system wide':
+
+              1.05 Joules power/energy-pkg/                                           
+
+       0.033143889 seconds time elapsed
+
+Running min-max-pos-bench SSE 2048
+Seed: 1669110726
+Matrix dim: 2048
+Elapsed time SIMD SSE: 2492 us
+
+ Performance counter stats for 'system wide':
+
+              1.89 Joules power/energy-pkg/                                           
+
+       0.054803344 seconds time elapsed
+
+Running min-max-pos-bench SSE 4096
+Seed: 1669110726
+Matrix dim: 4096
+Elapsed time SIMD SSE: 10074 us
+
+ Performance counter stats for 'system wide':
+
+              4.76 Joules power/energy-pkg/                                           
+
+       0.126981203 seconds time elapsed
+
+Running min-max-pos-bench SSE 8192
+Seed: 1669110726
+Matrix dim: 8192
+Elapsed time SIMD SSE: 39878 us
+
+ Performance counter stats for 'system wide':
+
+             17.37 Joules power/energy-pkg/                                           
+
+       0.463057402 seconds time elapsed
+
+Running min-max-pos-bench SSE 16384
+Seed: 1669110727
+Matrix dim: 16384
+Elapsed time SIMD SSE: 159491 us
+
+ Performance counter stats for 'system wide':
+
+             68.03 Joules power/energy-pkg/                                           
+
+       1.810493505 seconds time elapsed
+
+Running min-max-pos-bench SSE 32768
+Seed: 1669110728
+Matrix dim: 32768
+Elapsed time SIMD SSE: 641828 us
+
+ Performance counter stats for 'system wide':
+
+            269.27 Joules power/energy-pkg/                                           
+
+       7.247209891 seconds time elapsed
+
+Running min-max-pos-bench AVX 1024
+Workload failed: No such file or directory
+Running min-max-pos-bench AVX 2048
+Workload failed: No such file or directory
+Running min-max-pos-bench AVX 4096
+Workload failed: No such file or directory
+Running min-max-pos-bench AVX 8192
+Workload failed: No such file or directory
+Running min-max-pos-bench AVX 16384
+Workload failed: No such file or directory
+Running min-max-pos-bench AVX 32768
+Workload failed: No such file or directory
+----------------------------
+Running min-max-pos-bench GOLDEN 1024
+Seed: 1669111067
+Matrix dim: 1024
+Elapsed time golden: 949 us
+min: 5.00146 max 1005 minPos 995904 maxPos: 700332
+
+ Performance counter stats for 'system wide':
+
+              1.10 Joules power/energy-pkg/                                           
+
+       0.033840129 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 2048
+Seed: 1669111067
+Matrix dim: 2048
+Elapsed time golden: 3920 us
+min: 5.00008 max 1005 minPos 1754909 maxPos: 2310141
+
+ Performance counter stats for 'system wide':
+
+              1.65 Joules power/energy-pkg/                                           
+
+       0.043977231 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 4096
+Seed: 1669111067
+Matrix dim: 4096
+Elapsed time golden: 16076 us
+min: 5.00002 max 1005 minPos 13167443 maxPos: 2310141
+
+ Performance counter stats for 'system wide':
+
+              5.33 Joules power/energy-pkg/                                           
+
+       0.145243298 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 8192
+Seed: 1669111067
+Matrix dim: 8192
+Elapsed time golden: 63999 us
+min: 5 max 1005 minPos 25181149 maxPos: 27602215
+
+ Performance counter stats for 'system wide':
+
+             18.81 Joules power/energy-pkg/                                           
+
+       0.489454068 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 16384
+Seed: 1669111067
+Matrix dim: 16384
+Elapsed time golden: 253634 us
+min: 5 max 1005 minPos 25181149 maxPos: 91564533
+
+ Performance counter stats for 'system wide':
+
+             69.76 Joules power/energy-pkg/                                           
+
+       1.899962139 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 32768
+Seed: 1669111069
+Matrix dim: 32768
+Elapsed time golden: 1.01166e+06 us
+min: 5 max 1005 minPos 255757577 maxPos: 6563889
+
+ Performance counter stats for 'system wide':
+
+            277.19 Joules power/energy-pkg/                                           
+
+       7.610232376 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench SSE 1024
+Seed: 1669111078
+Matrix dim: 1024
+Elapsed time SIMD SSE: 583 us
+
+ Performance counter stats for 'system wide':
+
+              1.02 Joules power/energy-pkg/                                           
+
+       0.033519909 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench SSE 2048
+Seed: 1669111078
+Matrix dim: 2048
+Elapsed time SIMD SSE: 2482 us
+
+ Performance counter stats for 'system wide':
+
+              1.59 Joules power/energy-pkg/                                           
+
+       0.042837191 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench SSE 4096
+Seed: 1669111078
+Matrix dim: 4096
+Elapsed time SIMD SSE: 10024 us
+
+ Performance counter stats for 'system wide':
+
+              4.65 Joules power/energy-pkg/                                           
+
+       0.126821513 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench SSE 8192
+Seed: 1669111078
+Matrix dim: 8192
+Elapsed time SIMD SSE: 39853 us
+
+ Performance counter stats for 'system wide':
+
+             16.93 Joules power/energy-pkg/                                           
+
+       0.462464301 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench SSE 16384
+Seed: 1669111078
+Matrix dim: 16384
+Elapsed time SIMD SSE: 158641 us
+
+ Performance counter stats for 'system wide':
+
+             66.54 Joules power/energy-pkg/                                           
+
+       1.815401236 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench SSE 32768
+Seed: 1669111080
+Matrix dim: 32768
+Elapsed time SIMD SSE: 630964 us
+
+ Performance counter stats for 'system wide':
+
+            265.91 Joules power/energy-pkg/                                           
+
+       7.152179106 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench AVX 1024
+Seed: 1669111088
+Matrix dim: 1024
+Elapsed time SIMD AVX: 93 us
+
+ Performance counter stats for 'system wide':
+
+              1.07 Joules power/energy-pkg/                                           
+
+       0.031906188 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench AVX 2048
+Seed: 1669111088
+Matrix dim: 2048
+Elapsed time SIMD AVX: 930 us
+
+ Performance counter stats for 'system wide':
+
+              1.64 Joules power/energy-pkg/                                           
+
+       0.040865171 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench AVX 4096
+Seed: 1669111088
+Matrix dim: 4096
+Elapsed time SIMD AVX: 4269 us
+
+ Performance counter stats for 'system wide':
+
+              4.81 Joules power/energy-pkg/                                           
+
+       0.121296361 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench AVX 8192
+Seed: 1669111088
+Matrix dim: 8192
+Elapsed time SIMD AVX: 14922 us
+
+ Performance counter stats for 'system wide':
+
+             17.55 Joules power/energy-pkg/                                           
+
+       0.439634786 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench AVX 16384
+Seed: 1669111088
+Matrix dim: 16384
+Elapsed time SIMD AVX: 57394 us
+
+ Performance counter stats for 'system wide':
+
+             68.80 Joules power/energy-pkg/                                           
+
+       1.715591720 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench AVX 32768
+Seed: 1669111090
+Matrix dim: 32768
+Elapsed time SIMD AVX: 238381 us
+
+ Performance counter stats for 'system wide':
+
+            247.33 Joules power/energy-pkg/                                           
+
+       6.779489448 seconds time elapsed
+
+----------------------------

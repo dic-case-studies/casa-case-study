@@ -217,8 +217,8 @@ int main(int argc, char **argv)
   std::cout << "min: " << minExpected << " max " << maxExpected << std::endl;
 #endif
 
-#ifdef SSE
   float minActual = FLT_MAX, maxActual = FLT_MIN;
+#ifdef SSE
   {
     WallClock t;
 

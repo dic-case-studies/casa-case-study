@@ -1,0 +1,78 @@
+Running min-max-pos-bench GOLDEN 1024
+Seed: 1669111966
+Matrix dim: 1024
+Elapsed time golden: 925 us
+min: 5.00043 max 1005 minPos 444801 maxPos: 512176
+
+ Performance counter stats for 'system wide':
+
+              1.07 Joules power/energy-pkg/                                           
+
+       0.032603629 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 2048
+Seed: 1669111966
+Matrix dim: 2048
+Elapsed time golden: 3818 us
+min: 5.00043 max 1005 minPos 444801 maxPos: 3313071
+
+ Performance counter stats for 'system wide':
+
+              2.03 Joules power/energy-pkg/                                           
+
+       0.059190465 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 4096
+Seed: 1669111966
+Matrix dim: 4096
+Elapsed time golden: 15954 us
+min: 5.00008 max 1005 minPos 14387616 maxPos: 13653920
+
+ Performance counter stats for 'system wide':
+
+              5.27 Joules power/energy-pkg/                                           
+
+       0.143016888 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 8192
+Seed: 1669111966
+Matrix dim: 8192
+Elapsed time golden: 62064 us
+min: 5 max 1005 minPos 65720757 maxPos: 33721680
+
+ Performance counter stats for 'system wide':
+
+             17.76 Joules power/energy-pkg/                                           
+
+       0.477400835 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 16384
+Seed: 1669111967
+Matrix dim: 16384
+Elapsed time golden: 252664 us
+min: 5 max 1005 minPos 254211881 maxPos: 74747923
+
+ Performance counter stats for 'system wide':
+
+             67.96 Joules power/energy-pkg/                                           
+
+       1.906214990 seconds time elapsed
+
+----------------------------
+Running min-max-pos-bench GOLDEN 32768
+Seed: 1669111969
+Matrix dim: 32768
+Elapsed time golden: 1.0043e+06 us
+min: 5 max 1005 minPos 868908201 maxPos: 4610676
+
+ Performance counter stats for 'system wide':
+
+            275.14 Joules power/energy-pkg/                                           
+
+       7.503749138 seconds time elapsed
+
+----------------------------

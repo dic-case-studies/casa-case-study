@@ -273,9 +273,9 @@ int main(int argc, char **argv) {
             << minPosExpected << " maxPos: " << maxPosExpected << std::endl;
 #endif
 
-#ifdef SSE
   float minActual = FLT_MIN, maxActual = FLT_MIN;
   size_t minPosActual = 0, maxPosActual = 0;
+#ifdef SSE
   {
     WallClock t;
 

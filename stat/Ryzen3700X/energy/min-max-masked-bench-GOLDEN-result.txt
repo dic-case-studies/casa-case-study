@@ -1,0 +1,78 @@
+Running min-max-masked-bench GOLDEN 1024
+Seed: 1669111911
+Matrix dim: 1024
+Elapsed time golden: 990 us
+min: 4.08632e-05 max 1003.89 minPos 182491 maxPos: 351793
+
+ Performance counter stats for 'system wide':
+
+              1.47 Joules power/energy-pkg/                                           
+
+       0.041460031 seconds time elapsed
+
+----------------------------
+Running min-max-masked-bench GOLDEN 2048
+Seed: 1669111911
+Matrix dim: 2048
+Elapsed time golden: 4284 us
+min: 3.65808e-05 max 1004.71 minPos 3469025 maxPos: 1336705
+
+ Performance counter stats for 'system wide':
+
+              2.65 Joules power/energy-pkg/                                           
+
+       0.068785128 seconds time elapsed
+
+----------------------------
+Running min-max-masked-bench GOLDEN 4096
+Seed: 1669111911
+Matrix dim: 4096
+Elapsed time golden: 16725 us
+min: 2.51889e-05 max 1004.88 minPos 10998960 maxPos: 15114848
+
+ Performance counter stats for 'system wide':
+
+              8.99 Joules power/energy-pkg/                                           
+
+       0.229176890 seconds time elapsed
+
+----------------------------
+Running min-max-masked-bench GOLDEN 8192
+Seed: 1669111911
+Matrix dim: 8192
+Elapsed time golden: 67331 us
+min: 7.75352e-07 max 1004.88 minPos 35682255 maxPos: 15114848
+
+ Performance counter stats for 'system wide':
+
+             34.45 Joules power/energy-pkg/                                           
+
+       0.871006889 seconds time elapsed
+
+----------------------------
+Running min-max-masked-bench GOLDEN 16384
+Seed: 1669111912
+Matrix dim: 16384
+Elapsed time golden: 268566 us
+min: 4.55802e-07 max 1004.97 minPos 182526344 maxPos: 199851350
+
+ Performance counter stats for 'system wide':
+
+            135.50 Joules power/energy-pkg/                                           
+
+       3.446113943 seconds time elapsed
+
+----------------------------
+Running min-max-masked-bench GOLDEN 32768
+Seed: 1669111916
+Matrix dim: 32768
+Elapsed time golden: 1.07668e+06 us
+min: 0 max 1004.99 minPos 834112457 maxPos: 491081142
+
+ Performance counter stats for 'system wide':
+
+            486.99 Joules power/energy-pkg/                                           
+
+      13.663714954 seconds time elapsed
+
+----------------------------

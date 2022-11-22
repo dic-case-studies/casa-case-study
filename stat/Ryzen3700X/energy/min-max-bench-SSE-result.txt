@@ -1,0 +1,72 @@
+Running min-max-bench SSE 1024
+Seed: 1669111891
+Matrix dim: 1024
+Elapsed time SIMD SSE: 544 us
+
+ Performance counter stats for 'system wide':
+
+              1.11 Joules power/energy-pkg/                                           
+
+       0.033001978 seconds time elapsed
+
+----------------------------
+Running min-max-bench SSE 2048
+Seed: 1669111891
+Matrix dim: 2048
+Elapsed time SIMD SSE: 2300 us
+
+ Performance counter stats for 'system wide':
+
+              1.86 Joules power/energy-pkg/                                           
+
+       0.053899384 seconds time elapsed
+
+----------------------------
+Running min-max-bench SSE 4096
+Seed: 1669111891
+Matrix dim: 4096
+Elapsed time SIMD SSE: 9265 us
+
+ Performance counter stats for 'system wide':
+
+              4.60 Joules power/energy-pkg/                                           
+
+       0.124879543 seconds time elapsed
+
+----------------------------
+Running min-max-bench SSE 8192
+Seed: 1669111891
+Matrix dim: 8192
+Elapsed time SIMD SSE: 37263 us
+
+ Performance counter stats for 'system wide':
+
+             17.01 Joules power/energy-pkg/                                           
+
+       0.456876460 seconds time elapsed
+
+----------------------------
+Running min-max-bench SSE 16384
+Seed: 1669111892
+Matrix dim: 16384
+Elapsed time SIMD SSE: 147513 us
+
+ Performance counter stats for 'system wide':
+
+             64.04 Joules power/energy-pkg/                                           
+
+       1.797752081 seconds time elapsed
+
+----------------------------
+Running min-max-bench SSE 32768
+Seed: 1669111894
+Matrix dim: 32768
+Elapsed time SIMD SSE: 590735 us
+
+ Performance counter stats for 'system wide':
+
+            254.84 Joules power/energy-pkg/                                           
+
+       7.102896383 seconds time elapsed
+
+----------------------------
