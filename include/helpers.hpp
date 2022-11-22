@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 namespace chrono = std::chrono;
 

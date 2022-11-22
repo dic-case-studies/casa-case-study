@@ -1,0 +1,66 @@
+Matrix dim: 1024
+seed = 1669103219
+Time taken for casacore minMaxMasked: 2200 ms
+
+Time taken for openmp minMaxMasked: 394 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 107 ms
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 2048
+seed = 1669103219
+Time taken for casacore minMaxMasked: 8790 ms
+
+Time taken for openmp minMaxMasked: 820 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 703 ms
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 4096
+seed = 1669103219
+Time taken for casacore minMaxMasked: 35686 ms
+
+Time taken for openmp minMaxMasked: 4395 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 4700 ms
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 8192
+seed = 1669103219
+Time taken for casacore minMaxMasked: 142246 ms
+
+Time taken for openmp minMaxMasked: 16706 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 16415 ms
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 16384
+seed = 1669103220
+Time taken for casacore minMaxMasked: 588668 ms
+
+Time taken for openmp minMaxMasked: 62916 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 80442 ms
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 32768
+seed = 1669103227
+Time taken for casacore minMaxMasked: 2.27657e+06 ms
+
+Time taken for openmp minMaxMasked: 254298 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 267127 ms
+Assertion passed for SIMD
+
+-----------------------------
+
