@@ -7,18 +7,19 @@ declare -a SIZE=(1024 2048 4096 8192 16384 32768)
 # declare -a SIZE=(1024 2048 4096 8192)
 # declare -a SIZE=(4096)
 
-mkdir -p stat
-bench=$1
+host=$1
+bench=$2
+mkdir -p stat/$host
 
-rm -f stat/$bench-result.txt stat/$bench-stats.csv stat/$bench-performance.png
+rm -f stat/$host/$bench-result.txt stat/$host/$bench-stats.csv stat/$host/$bench-performance.png
 
 for sz in "${SIZE[@]}"
 do
   echo "min-max $sz"
-  ./build/$bench $sz >> stat/$bench-result.txt
+  ./build/$bench $sz >> stat/$host/$bench-result.txt
 done
 
-cat stat/$bench-result.txt | awk '                          \
+cat stat/$host/$bench-result.txt | awk '                          \
   /Matrix dim/ {                              \
     size = $NF;                               \
   }                                           \
@@ -32,7 +33,7 @@ cat stat/$bench-result.txt | awk '                          \
     avx = $(NF-1);                            \
     printf("%s, %s, %s, %s\n", size, golden, sse, avx); \
   }                                           \
-' > stat/$bench-stats.csv
+' > stat/$host/$bench-stats.csv
 
 echo "                                            \
   reset;                                          \
@@ -45,7 +46,7 @@ echo "                                            \
   set logscale x;                                        \
   set logscale y;                                        \
                                                          \
-  plot \"stat/$bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
-       \"stat/$bench-stats.csv\" using 1:3 with linespoint title \"SSE\",    \
-       \"stat/$bench-stats.csv\" using 1:4 with linespoint title \"AVX\";    \
-" | gnuplot > stat/$bench-performance.png
+  plot \"stat/$host/$bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
+       \"stat/$host/$bench-stats.csv\" using 1:3 with linespoint title \"SSE\",    \
+       \"stat/$host/$bench-stats.csv\" using 1:4 with linespoint title \"AVX\";    \
+" | gnuplot > stat/$host/$bench-performance.png

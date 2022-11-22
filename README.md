@@ -27,18 +27,20 @@ benchCASA.sh
 
 ## Performance
 
+### i7-9750H
+
 1. MinMax with OpenMp and SIMD
 
-![Stats](./stat/min-max-bench-performance.png)
+![Stats](./stat/i7-9750H/min-max-bench-performance.png)
 
 2. MinMaxPos with OpenMp and SIMD
 
-![Stats](./stat/min-max-pos-bench-performance.png)
+![Stats](./stat/i7-9750H/min-max-pos-bench-performance.png)
 
 3. MinMaxMasked with OpenMp and SIMD
 
-![Stats](./stat/min-max-masked-bench-performance.png)
+![Stats](./stat/i7-9750H/min-max-masked-bench-performance.png)
 
 4. Casa benchchmark with Openmp and SIMD
 
-![Stats](./stat/casa-bench-performance.png)
+![Stats](./stat/i7-9750H/casa-bench-performance.png)
