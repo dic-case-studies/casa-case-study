@@ -1,0 +1,36 @@
+Seed: 1669103141
+Matrix dim: 1024
+Elapsed time golden: 2241 us
+min: 0.000209237 max 1003.84 minPos 535659 maxPos: 216659
+Elapsed time SIMD SSE: 560 us
+Elapsed time SIMD AVX: 100 us
+Seed: 1669103141
+Matrix dim: 2048
+Elapsed time golden: 8971 us
+min: 2.28393e-05 max 1004.04 minPos 3975901 maxPos: 3268842
+Elapsed time SIMD SSE: 2280 us
+Elapsed time SIMD AVX: 699 us
+Seed: 1669103141
+Matrix dim: 4096
+Elapsed time golden: 36014 us
+min: 2.28393e-05 max 1004.45 minPos 3975901 maxPos: 11525790
+Elapsed time SIMD SSE: 9559 us
+Elapsed time SIMD AVX: 4482 us
+Seed: 1669103142
+Matrix dim: 8192
+Elapsed time golden: 143842 us
+min: 1.59364e-06 max 1004.89 minPos 17368855 maxPos: 30380870
+Elapsed time SIMD SSE: 37776 us
+Elapsed time SIMD AVX: 17453 us
+Seed: 1669103143
+Matrix dim: 16384
+Elapsed time golden: 575210 us
+min: 9.73773e-07 max 1004.94 minPos 214324048 maxPos: 151330435
+Elapsed time SIMD SSE: 149529 us
+Elapsed time SIMD AVX: 73319 us
+Seed: 1669103146
+Matrix dim: 32768
+Elapsed time golden: 2.30094e+06 us
+min: 6.17457e-07 max 1004.96 minPos 203816337 maxPos: 634964088
+Elapsed time SIMD SSE: 596344 us
+Elapsed time SIMD AVX: 290494 us
