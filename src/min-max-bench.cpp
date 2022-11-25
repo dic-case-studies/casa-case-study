@@ -19,6 +19,7 @@
 #endif
 
 #ifdef arm64
+#include "sse2neon.h"
 #include <arm_neon.h>
 #endif
 

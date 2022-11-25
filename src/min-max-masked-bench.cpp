@@ -20,6 +20,7 @@
 
 #ifdef arm64
 #include <arm_neon.h>
+#include "sse2neon.h"
 #endif
 
 void golden(float *arr, float *weight, size_t N, float &min, size_t &minPos,
@@ -92,10 +93,10 @@ void simd_sse(float *arr, float *weight, size_t N, float &min, size_t &minPos,
   uint32_t min_pos_temp[simd_width];
 
   _mm_storeu_ps(min_tmp, min_r);
-  _mm_storeu_si128((__m128i_u *)min_pos_temp, min_pos_r);
+  _mm_store_si128(reinterpret_cast<__m128i *>(min_pos_temp), min_pos_r);
 
   _mm_storeu_ps(max_tmp, max_r);
-  _mm_storeu_si128((__m128i_u *)max_pos_temp, max_pos_r);
+  _mm_store_si128(reinterpret_cast<__m128i *>(max_pos_temp), max_pos_r);
 
   max = max_tmp[0];
   maxPos = max_pos_temp[0];

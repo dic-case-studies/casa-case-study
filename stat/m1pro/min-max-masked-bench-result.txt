@@ -1,30 +1,36 @@
-Seed: 1669359577
+Seed: 1669377228
 Matrix dim: 1024
-Elapsed time golden: 2493 us
-min: 3.91435e-05 max 1002.96 minPos 994105 maxPos: 486579
-Elapsed time SIMD NEON: 258 us
-Seed: 1669359577
+Elapsed time golden: 2499 us
+min: 1.05347e-05 max 1002.25 minPos 771793 maxPos: 511197
+Elapsed time SIMD SSE: 297 us
+Elapsed time SIMD NEON: 262 us
+Seed: 1669377228
 Matrix dim: 2048
-Elapsed time golden: 10124 us
-min: 3.91435e-05 max 1004.63 minPos 994105 maxPos: 3057123
-Elapsed time SIMD NEON: 1070 us
-Seed: 1669359577
+Elapsed time golden: 9986 us
+min: 9.36008e-06 max 1004.93 minPos 2385770 maxPos: 3245025
+Elapsed time SIMD SSE: 1184 us
+Elapsed time SIMD NEON: 1022 us
+Seed: 1669377228
 Matrix dim: 4096
-Elapsed time golden: 42221 us
-min: 1.71589e-05 max 1004.94 minPos 12053237 maxPos: 12374513
-Elapsed time SIMD NEON: 4095 us
-Seed: 1669359577
+Elapsed time golden: 39872 us
+min: 9.36008e-06 max 1004.93 minPos 2385770 maxPos: 3245025
+Elapsed time SIMD SSE: 4679 us
+Elapsed time SIMD NEON: 4088 us
+Seed: 1669377229
 Matrix dim: 8192
-Elapsed time golden: 191015 us
-min: 3.18727e-06 max 1004.94 minPos 34423733 maxPos: 12374513
-Elapsed time SIMD NEON: 16631 us
-Seed: 1669359579
+Elapsed time golden: 159763 us
+min: 2.35901e-06 max 1004.79 minPos 39227651 maxPos: 46670818
+Elapsed time SIMD SSE: 18695 us
+Elapsed time SIMD NEON: 16396 us
+Seed: 1669377230
 Matrix dim: 16384
-Elapsed time golden: 761428 us
-min: 2.94299e-07 max 1004.93 minPos 115285105 maxPos: 87335608
-Elapsed time SIMD NEON: 65599 us
-Seed: 1669359585
+Elapsed time golden: 662816 us
+min: 6.57755e-07 max 1004.91 minPos 244786051 maxPos: 176371640
+Elapsed time SIMD SSE: 74821 us
+Elapsed time SIMD NEON: 65393 us
+Seed: 1669377236
 Matrix dim: 32768
-Elapsed time golden: 4.33284e+06 us
-min: 5.30942e-07 max 1004.98 minPos 304837876 maxPos: 600781270
-Elapsed time SIMD NEON: 402655 us
+Elapsed time golden: 4.31118e+06 us
+min: 1.96079e-07 max 1004.99 minPos 531500796 maxPos: 843231638
+Elapsed time SIMD SSE: 463553 us
+Elapsed time SIMD NEON: 262814 us

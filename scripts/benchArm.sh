@@ -26,9 +26,12 @@ cat stat/$host/$bench-result.txt | awk '                          \
   /Elapsed time golden/ {                     \
     golden = $(NF-1);                         \
   }                                           \
+  /Elapsed time SIMD SSE/ {                   \
+    sse = $(NF-1);                            \
+  }                                           \
   /Elapsed time SIMD NEON/ {                   \
     neon = $(NF-1);                            \
-    printf("%s, %s, %s\n", size, golden, neon); \
+    printf("%s, %s, %s, %s\n", size, golden, sse, neon); \
   }                                           \
 ' > stat/$host/$bench-stats.csv
 
@@ -44,5 +47,6 @@ echo "                                            \
   set logscale y;                                        \
                                                          \
   plot \"stat/$host/$bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
-       \"stat/$host/$bench-stats.csv\" using 1:3 with linespoint title \"NEON\";   \
+       \"stat/$host/$bench-stats.csv\" using 1:3 with linespoint title \"SSE\",  \
+       \"stat/$host/$bench-stats.csv\" using 1:4 with linespoint title \"NEON\";   \
 " | gnuplot > stat/$host/$bench-performance.png

@@ -1,30 +1,36 @@
-Seed: 1669360530
+Seed: 1669377846
 Matrix dim: 1024
-Elapsed time golden: 2795 us
-min: 5.00211 max 1005 minPos 595867 maxPos: 681755
-Elapsed time SIMD NEON: 271 us
-Seed: 1669360530
+Elapsed time golden: 2492 us
+min: 5.00119 max 1005 minPos 664435 maxPos: 47381
+Elapsed time SIMD SSE: 275 us
+Elapsed time SIMD NEON: 245 us
+Seed: 1669377846
 Matrix dim: 2048
-Elapsed time golden: 9987 us
-min: 5.00021 max 1005 minPos 3281037 maxPos: 3725454
-Elapsed time SIMD NEON: 987 us
-Seed: 1669360530
+Elapsed time golden: 9997 us
+min: 5.00025 max 1005 minPos 1383545 maxPos: 1151835
+Elapsed time SIMD SSE: 1093 us
+Elapsed time SIMD NEON: 985 us
+Seed: 1669377846
 Matrix dim: 4096
-Elapsed time golden: 39953 us
-min: 5.00016 max 1005 minPos 10732941 maxPos: 15010372
-Elapsed time SIMD NEON: 3952 us
-Seed: 1669360530
+Elapsed time golden: 39967 us
+min: 5.00011 max 1005 minPos 7740980 maxPos: 1151835
+Elapsed time SIMD SSE: 4378 us
+Elapsed time SIMD NEON: 3951 us
+Seed: 1669377846
 Matrix dim: 8192
-Elapsed time golden: 159699 us
-min: 5.00003 max 1005 minPos 51086425 maxPos: 41619696
-Elapsed time SIMD NEON: 15818 us
-Seed: 1669360531
+Elapsed time golden: 159820 us
+min: 5.00004 max 1005 minPos 22808196 maxPos: 59751410
+Elapsed time SIMD SSE: 17524 us
+Elapsed time SIMD NEON: 15908 us
+Seed: 1669377847
 Matrix dim: 16384
-Elapsed time golden: 655172 us
-min: 5 max 1005 minPos 177802926 maxPos: 49939340
-Elapsed time SIMD NEON: 63395 us
-Seed: 1669360534
+Elapsed time golden: 645475 us
+min: 5 max 1005 minPos 178710001 maxPos: 16486712
+Elapsed time SIMD SSE: 70254 us
+Elapsed time SIMD NEON: 63260 us
+Seed: 1669377850
 Matrix dim: 32768
-Elapsed time golden: 2.64351e+06 us
-min: 5 max 1005 minPos 793937801 maxPos: 14443517
-Elapsed time SIMD NEON: 253030 us
+Elapsed time golden: 2.64124e+06 us
+min: 5 max 1005 minPos 844539231 maxPos: 30518475
+Elapsed time SIMD SSE: 281142 us
+Elapsed time SIMD NEON: 254087 us
