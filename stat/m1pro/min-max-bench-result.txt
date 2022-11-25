@@ -1,0 +1,30 @@
+Seed: 1669356580
+Matrix dim: 1024
+Elapsed time golden: 2495 us
+min: 5.0004 max 1005
+Elapsed time SIMD NEON: 196 us
+Seed: 1669356580
+Matrix dim: 2048
+Elapsed time golden: 10241 us
+min: 5.0004 max 1005
+Elapsed time SIMD NEON: 822 us
+Seed: 1669356580
+Matrix dim: 4096
+Elapsed time golden: 41380 us
+min: 5.00013 max 1005
+Elapsed time SIMD NEON: 3221 us
+Seed: 1669356580
+Matrix dim: 8192
+Elapsed time golden: 166036 us
+min: 5.00003 max 1005
+Elapsed time SIMD NEON: 12621 us
+Seed: 1669356581
+Matrix dim: 16384
+Elapsed time golden: 698015 us
+min: 5 max 1005
+Elapsed time SIMD NEON: 50470 us
+Seed: 1669356584
+Matrix dim: 32768
+Elapsed time golden: 3.20471e+06 us
+min: 5 max 1005
+Elapsed time SIMD NEON: 201677 us

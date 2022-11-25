@@ -12,14 +12,14 @@
 #include <math.h>
 
 #ifdef amd64
-  #include <emmintrin.h>
-  #include <immintrin.h>
-  #include <smmintrin.h>
-  #include <xmmintrin.h>
+#include <emmintrin.h>
+#include <immintrin.h>
+#include <smmintrin.h>
+#include <xmmintrin.h>
 #endif
 
 #ifdef arm64
-  #include "sse2neon.h"
+#include <arm_neon.h>
 #endif
 
 void golden(float *arr, size_t N, float &min, float &max)
@@ -39,28 +39,7 @@ void golden(float *arr, size_t N, float &min, float &max)
   }
 }
 
-void print_vector(const __m128i v)
-{
-  uint32_t temp[4];
-  _mm_storeu_si128((__m128i_u *)temp, v);
-  for (int i = 0; i < 4; i++)
-  {
-    std::cout << temp[i] << " ";
-  }
-  std::cout << std::endl;
-}
-
-void print_vector(const __m128 v)
-{
-  float temp[4];
-  _mm_storeu_ps(temp, v);
-  for (int i = 0; i < 4; i++)
-  {
-    std::cout << temp[i] << " ";
-  }
-  std::cout << std::endl;
-}
-
+#ifdef SSE
 void simd_sse(float *arr, size_t N, float &min, float &max)
 {
 
@@ -116,7 +95,9 @@ void simd_sse(float *arr, size_t N, float &min, float &max)
     }
   }
 }
+#endif
 
+#ifdef AVX
 void simd_avx(float *arr, size_t N, float &min, float &max)
 {
 
@@ -178,6 +159,47 @@ void simd_avx(float *arr, size_t N, float &min, float &max)
     }
   }
 }
+#endif
+
+#ifdef NEON
+void simd_neon(float *arr, size_t N, float &min, float &max)
+{
+  assert(N < (size_t)INT_MAX);
+
+  const int simd_width = 4;
+  float32x4_t arr_r = vld1q_f32(arr);
+  float32x4_t max_r = arr_r;
+  float32x4_t min_r = arr_r;
+
+  size_t quot = N / simd_width;
+  size_t limit = quot * simd_width;
+
+  for (size_t i = simd_width; i < limit; i += simd_width)
+  {
+    arr_r = vld1q_f32(arr + i);
+
+    min_r = vminq_f32(min_r, arr_r);
+
+    max_r = vmaxq_f32(max_r, arr_r);
+  }
+
+  max = vmaxvq_f32(max_r);
+  min = vminvq_f32(min_r);
+
+  // Min max for reminder
+  for (size_t i = limit; i < N; i++)
+  {
+    if (max < arr[i])
+    {
+      max = arr[i];
+    }
+    if (min > arr[i])
+    {
+      min = arr[i];
+    }
+  }
+}
+#endif
 
 int main(int argc, char **argv)
 {
@@ -217,38 +239,53 @@ int main(int argc, char **argv)
   std::cout << "min: " << minExpected << " max " << maxExpected << std::endl;
 #endif
 
-  float minActual = FLT_MAX, maxActual = FLT_MIN;
 #ifdef SSE
   {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
     WallClock t;
 
     simd_sse(arr, N, minActual, maxActual);
 
     std::cout << "Elapsed time SIMD SSE: " << t.elapsedTime() << " us"
               << std::endl;
+#ifdef ASSERT
+    assert_float(maxExpected, maxActual, "maxSSE");
+    assert_float(minExpected, minActual, "minSSE");
+#endif
   }
 #endif
 
-#ifdef ASSERT
-  assert_float(maxExpected, maxActual, "max");
-  assert_float(minExpected, minActual, "min");
-#endif
-
 #ifdef AVX
-  minActual = 0.0f, maxActual = 0.0f;
   {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
     WallClock t;
 
     simd_avx(arr, N, minActual, maxActual);
 
     std::cout << "Elapsed time SIMD AVX: " << t.elapsedTime() << " us"
               << std::endl;
+#ifdef ASSERT
+    assert_float(maxExpected, maxActual, "maxAVX");
+    assert_float(minExpected, minActual, "minAVX");
+#endif
   }
 #endif
 
+#ifdef NEON
+  {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
+    WallClock t;
+
+    simd_neon(arr, N, minActual, maxActual);
+
+    std::cout << "Elapsed time SIMD NEON: " << t.elapsedTime() << " us"
+              << std::endl;
+
 #ifdef ASSERT
-  assert_float(maxExpected, maxActual, "max");
-  assert_float(minExpected, minActual, "min");
+    assert_float(maxExpected, maxActual, "maxNEON");
+    assert_float(minExpected, minActual, "minNEON");
+#endif
+  }
 #endif
 
   delete[] arr;
