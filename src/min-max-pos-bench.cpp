@@ -19,45 +19,33 @@
 #endif
 
 #ifdef arm64
-#include "sse2neon.h"
+#include <arm_neon.h>
 #endif
 
 void golden(float *arr, size_t N, float &min, size_t &minPos, float &max,
-            size_t &maxPos) {
+            size_t &maxPos)
+{
   min = FLT_MAX;
   max = FLT_MIN;
-  for (size_t i = 0; i < N; i++) {
-    if (min > arr[i]) {
+  for (size_t i = 0; i < N; i++)
+  {
+    if (min > arr[i])
+    {
       min = arr[i];
       minPos = i;
     }
-    if (max < arr[i]) {
+    if (max < arr[i])
+    {
       max = arr[i];
       maxPos = i;
     }
   }
 }
 
-void print_vector(const __m128i v) {
-  uint32_t temp[4];
-  _mm_storeu_si128((__m128i_u *)temp, v);
-  for (int i = 0; i < 4; i++) {
-    std::cout << temp[i] << " ";
-  }
-  std::cout << std::endl;
-}
-
-void print_vector(const __m128 v) {
-  float temp[4];
-  _mm_storeu_ps(temp, v);
-  for (int i = 0; i < 4; i++) {
-    std::cout << temp[i] << " ";
-  }
-  std::cout << std::endl;
-}
-
+#ifdef SSE
 void simd_sse(float *arr, size_t N, float &min, size_t &minPos, float &max,
-              size_t &maxPos) {
+              size_t &maxPos)
+{
 
   assert(N < (size_t)INT_MAX);
 
@@ -76,7 +64,8 @@ void simd_sse(float *arr, size_t N, float &min, size_t &minPos, float &max,
   size_t quot = N / simd_width;
   size_t limit = quot * simd_width;
 
-  for (size_t i = simd_width; i < limit; i += simd_width) {
+  for (size_t i = simd_width; i < limit; i += simd_width)
+  {
     idx_r = _mm_add_epi32(idx_r, inc);
     arr_r = _mm_loadu_ps(arr + i);
 
@@ -108,36 +97,49 @@ void simd_sse(float *arr, size_t N, float &min, size_t &minPos, float &max,
   min = min_tmp[0];
   minPos = min_pos_temp[0];
 
-  for (int i = 1; i < simd_width; i++) {
-    if (max_tmp[i] > max) {
+  for (int i = 1; i < simd_width; i++)
+  {
+    if (max_tmp[i] > max)
+    {
       max = max_tmp[i];
       maxPos = max_pos_temp[i];
-    } else if (max_tmp[i] == max) {
+    }
+    else if (max_tmp[i] == max)
+    {
       maxPos = std::min(maxPos, size_t(max_pos_temp[i]));
     }
-    if (min_tmp[i] < min) {
+    if (min_tmp[i] < min)
+    {
       min = min_tmp[i];
       minPos = min_pos_temp[i];
-    } else if (min_tmp[i] == min) {
+    }
+    else if (min_tmp[i] == min)
+    {
       minPos = std::min(minPos, size_t(min_pos_temp[i]));
     }
   }
 
   // Min max for reminder
-  for (size_t i = limit; i < N; i++) {
-    if (max < arr[i]) {
+  for (size_t i = limit; i < N; i++)
+  {
+    if (max < arr[i])
+    {
       max = arr[i];
       maxPos = i;
     }
-    if (min > arr[i]) {
+    if (min > arr[i])
+    {
       min = arr[i];
       minPos = i;
     }
   }
 }
+#endif
 
+#ifdef AVX
 void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
-              size_t &maxPos) {
+              size_t &maxPos)
+{
 
   assert(N < (size_t)INT_MAX);
 
@@ -156,7 +158,8 @@ void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
   size_t quot = N / simd_width;
   size_t limit = quot * simd_width;
 
-  for (size_t i = simd_width; i < limit; i += simd_width) {
+  for (size_t i = simd_width; i < limit; i += simd_width)
+  {
     idx_r = _mm256_add_epi32(idx_r, inc);
     arr_r = _mm256_loadu_ps(arr + i);
 
@@ -172,9 +175,6 @@ void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
     max_r = _mm256_max_ps(max_r, arr_r);
     max_pos_r = _mm256_blendv_epi8(max_pos_r, idx_r, max_mask);
   }
-
-  // print_vector(max_r);
-  // print_vector(max_pos_r);
 
   // Unload from vector register and reduce
   float max_tmp[simd_width];
@@ -194,36 +194,146 @@ void simd_avx(float *arr, size_t N, float &min, size_t &minPos, float &max,
   min = min_tmp[0];
   minPos = min_pos_temp[0];
 
-  for (int i = 1; i < simd_width; i++) {
-    if (max_tmp[i] > max) {
+  for (int i = 1; i < simd_width; i++)
+  {
+    if (max_tmp[i] > max)
+    {
       max = max_tmp[i];
       maxPos = max_pos_temp[i];
-    } else if (max_tmp[i] == max) {
+    }
+    else if (max_tmp[i] == max)
+    {
       maxPos = std::min(maxPos, size_t(max_pos_temp[i]));
     }
-    if (min_tmp[i] < min) {
+    if (min_tmp[i] < min)
+    {
       min = min_tmp[i];
       minPos = min_pos_temp[i];
-    } else if (min_tmp[i] == min) {
+    }
+    else if (min_tmp[i] == min)
+    {
       minPos = std::min(minPos, size_t(min_pos_temp[i]));
     }
   }
 
   // Min max for reminder
-  for (size_t i = limit; i < N; i++) {
-    if (max < arr[i]) {
+  for (size_t i = limit; i < N; i++)
+  {
+    if (max < arr[i])
+    {
       max = arr[i];
       maxPos = i;
     }
-    if (min > arr[i]) {
+    if (min > arr[i])
+    {
+      min = arr[i];
+      minPos = i;
+    }
+  }
+}
+#endif
+
+#ifdef NEON
+void simd_neon(float *arr, size_t N, float &min, size_t &minPos, float &max,
+               size_t &maxPos)
+{
+
+  assert(N < (size_t)INT_MAX);
+
+  const int simd_width = 4;
+  float32x4_t arr_r = vld1q_f32(arr);
+  float32x4_t max_r = arr_r;
+  float32x4_t min_r = arr_r;
+
+  const unsigned int index_arr[4] = {0, 1, 2, 3};
+  uint32x4_t idx_r = vld1q_u32(index_arr);
+
+  uint32x4_t min_pos_r = idx_r;
+  uint32x4_t max_pos_r = idx_r;
+
+  uint32x4_t inc = vdupq_n_u32(simd_width);
+
+  size_t quot = N / simd_width;
+  size_t limit = quot * simd_width;
+
+  for (size_t i = simd_width; i < limit; i += simd_width)
+  {
+    idx_r = vaddq_u32(idx_r, inc);
+
+    arr_r = vld1q_f32(arr + i);
+
+    uint32x4_t min_mask = vcltq_u32(arr_r, min_r);
+    uint32x4_t max_mask = vcgtq_u32(arr_r, max_r);
+
+    min_r = vminq_f32(min_r, arr_r);
+    min_pos_r = vbslq_u32(min_mask, idx_r, min_pos_r);
+
+    max_r = vmaxq_f32(max_r, arr_r);
+    max_pos_r = vbslq_u32(max_mask, idx_r, max_pos_r);
+  }
+
+  // Unload from vector register and reduce
+  float max_tmp[simd_width];
+  float min_tmp[simd_width];
+
+  uint32_t max_pos_temp[simd_width];
+  uint32_t min_pos_temp[simd_width];
+
+  vst1q_f32(min_tmp, min_r);
+  vst1q_u32(min_pos_temp, min_pos_r);
+
+  vst1q_f32(max_tmp, max_r);
+  vst1q_u32(max_pos_temp, max_pos_r);
+
+  max = max_tmp[0];
+  maxPos = max_pos_temp[0];
+  min = min_tmp[0];
+  minPos = min_pos_temp[0];
+
+  for (int i = 1; i < simd_width; i++)
+  {
+    if (max_tmp[i] > max)
+    {
+      max = max_tmp[i];
+      maxPos = max_pos_temp[i];
+    }
+    else if (max_tmp[i] == max)
+    {
+      maxPos = std::min(maxPos, size_t(max_pos_temp[i]));
+    }
+    if (min_tmp[i] < min)
+    {
+      min = min_tmp[i];
+      minPos = min_pos_temp[i];
+    }
+    else if (min_tmp[i] == min)
+    {
+      minPos = std::min(minPos, size_t(min_pos_temp[i]));
+    }
+  }
+
+  // Min max for reminder
+  for (size_t i = limit; i < N; i++)
+  {
+    if (max < arr[i])
+    {
+      max = arr[i];
+      maxPos = i;
+    }
+    if (min > arr[i])
+    {
       min = arr[i];
       minPos = i;
     }
   }
 }
 
-int main(int argc, char **argv) {
-  if (argc < 2) {
+#endif
+
+int main(int argc, char **argv)
+{
+  if (argc < 2)
+  {
     std::cerr << " usage: ./min-max <N>" << std::endl;
     return 1;
   }
@@ -237,7 +347,8 @@ int main(int argc, char **argv) {
 
   float offset = 5.0f;
   float range = 1000.0f;
-  for (size_t i = 0; i < N; i++) {
+  for (size_t i = 0; i < N; i++)
+  {
     arr[i] = offset + range * (rand() / (float)RAND_MAX);
   }
 
@@ -259,44 +370,64 @@ int main(int argc, char **argv) {
             << minPosExpected << " maxPos: " << maxPosExpected << std::endl;
 #endif
 
-  float minActual = FLT_MAX, maxActual = FLT_MIN;
-  size_t minPosActual = 0, maxPosActual = 0;
 #ifdef SSE
   {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
+    size_t minPosActual = 0, maxPosActual = 0;
     WallClock t;
 
     simd_sse(arr, N, minActual, minPosActual, maxActual, maxPosActual);
 
     std::cout << "Elapsed time SIMD SSE: " << t.elapsedTime() << " us"
               << std::endl;
+
+#ifdef ASSERT
+    assert_float(maxExpected, maxActual, "maxSSE");
+    assert_float(minExpected, minActual, "minSSE");
+    assert_int(minPosExpected, minPosActual, "min_pos_SSE");
+    assert_int(maxPosExpected, maxPosActual, "max_pos_SSE");
+#endif
   }
 #endif
 
-#ifdef ASSERT
-  assert_float(maxExpected, maxActual, "max");
-  assert_float(minExpected, minActual, "min");
-  assert_int(minPosExpected, minPosActual, "min_pos");
-  assert_int(maxPosExpected, maxPosActual, "max_pos");
-#endif
-
 #ifdef AVX
-  minActual = FLT_MAX, maxActual = FLT_MIN;
-  minPosActual = 0, maxPosActual = 0;
   {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
+    size_t minPosActual = 0, maxPosActual = 0;
     WallClock t;
 
     simd_avx(arr, N, minActual, minPosActual, maxActual, maxPosActual);
 
     std::cout << "Elapsed time SIMD AVX: " << t.elapsedTime() << " us"
               << std::endl;
+
+#ifdef ASSERT
+    assert_float(maxExpected, maxActual, "maxAVX");
+    assert_float(minExpected, minActual, "minAVX");
+    assert_int(minPosExpected, minPosActual, "min_pos_AVX");
+    assert_int(maxPosExpected, maxPosActual, "max_pos_AVX");
+#endif
   }
 #endif
 
+#ifdef NEON
+  {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
+    size_t minPosActual = 0, maxPosActual = 0;
+    WallClock t;
+
+    simd_neon(arr, N, minActual, minPosActual, maxActual, maxPosActual);
+
+    std::cout << "Elapsed time SIMD NEON: " << t.elapsedTime() << " us"
+              << std::endl;
+
 #ifdef ASSERT
-  assert_float(maxExpected, maxActual, "max");
-  assert_float(minExpected, minActual, "min");
-  assert_int(minPosExpected, minPosActual, "min_pos");
-  assert_int(maxPosExpected, maxPosActual, "max_pos");
+    assert_float(maxExpected, maxActual, "maxNEON");
+    assert_float(minExpected, minActual, "minNEON");
+    assert_int(minPosExpected, minPosActual, "min_pos_NEON");
+    assert_int(maxPosExpected, maxPosActual, "max_pos_NEON");
+#endif
+  }
 #endif
 
   delete[] arr;
