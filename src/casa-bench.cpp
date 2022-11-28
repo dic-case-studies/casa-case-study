@@ -21,12 +21,12 @@ int main(int argc, char **argv) {
   std::cout << "seed = " << seed << std::endl;
   srand(seed);
 
-  float range = 10.0;
-  float offset = -4.0;
+  float range = 100.0;
+  float offset = -50.0;
   for (auto i = 0; i < SIZE; i++) {
     for (auto j = 0; j < SIZE; j++) {
       matrix(i, j) = offset + range * (rand() / (float)RAND_MAX);
-      weight(i, j) = 1;
+      weight(i, j) = (rand() / (float)RAND_MAX);
     }
   }
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
               << std::endl
               << std::endl;
   }
-  ///// Running openmp version of minMaxMasked /////
+  /// Running openmp version of minMaxMasked ///
 
   {
     casacore::IPosition actualMinPos, actualMaxPos;
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms"
               << std::endl;
 
-    /////Asserting on openmp results /////
+    ///Asserting on openmp results ///
 
     assert_float(expectedMin, actualMin, "openmp min");
     assert_float(expectedMax, actualMax, "openmp max");
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
   {
     casacore::IPosition actualMinPos, actualMaxPos;
     float actualMin, actualMax;
-    ///// Running SIMD version of minMaxMasked /////
+    /// Running SIMD version of minMaxMasked ///
     actualMin = FLT_MAX;
     actualMax = FLT_MIN;
 
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
     std::cout << "Time taken for SIMD minMaxMasked: " << duration << " ms"
               << std::endl;
 
-    /////Asserting on SIMD results /////
+    ///Asserting on SIMD results ///
 
     assert_float(expectedMin, actualMin, "SIMD min");
     assert_float(expectedMax, actualMax, "SIMD max");

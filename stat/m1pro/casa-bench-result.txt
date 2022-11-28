@@ -1,0 +1,90 @@
+Matrix dim: 1024
+seed = 1669546811
+Time taken for casacore minMaxMasked: 1579 ms
+
+Time taken for openmp minMaxMasked: 881 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 271 ms
+expectedMinPos : [581, 363]
+actualMinPos : [581, 363]
+expectedMaxPos : [152, 104]
+actualMaxPos : [152, 104]
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 2048
+seed = 1669546811
+Time taken for casacore minMaxMasked: 6300 ms
+
+Time taken for openmp minMaxMasked: 1808 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 1027 ms
+expectedMinPos : [290, 1387]
+actualMinPos : [290, 1387]
+expectedMaxPos : [76, 104]
+actualMaxPos : [76, 104]
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 4096
+seed = 1669546812
+Time taken for casacore minMaxMasked: 25189 ms
+
+Time taken for openmp minMaxMasked: 5625 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 4199 ms
+expectedMinPos : [545, 2267]
+actualMinPos : [545, 2267]
+expectedMaxPos : [3947, 3790]
+actualMaxPos : [3947, 3790]
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 8192
+seed = 1669546812
+Time taken for casacore minMaxMasked: 100624 ms
+
+Time taken for openmp minMaxMasked: 19671 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 16569 ms
+expectedMinPos : [7171, 1166]
+actualMinPos : [7171, 1166]
+expectedMaxPos : [1973, 7886]
+actualMaxPos : [1973, 7886]
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 16384
+seed = 1669546814
+Time taken for casacore minMaxMasked: 413018 ms
+
+Time taken for openmp minMaxMasked: 67215 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 66123 ms
+expectedMinPos : [7813, 12638]
+actualMinPos : [7813, 12638]
+expectedMaxPos : [15858, 3123]
+actualMaxPos : [15858, 3123]
+Assertion passed for SIMD
+
+-----------------------------
+
+Matrix dim: 32768
+seed = 1669546821
+Time taken for casacore minMaxMasked: 1.98612e+06 ms
+
+Time taken for openmp minMaxMasked: 205421 ms
+Assertion passed for openmp
+Time taken for SIMD minMaxMasked: 264308 ms
+expectedMinPos : [18923, 11026]
+actualMinPos : [18923, 11026]
+expectedMaxPos : [9121, 4912]
+actualMaxPos : [9121, 4912]
+Assertion passed for SIMD
+
+-----------------------------
+

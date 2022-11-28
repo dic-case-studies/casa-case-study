@@ -1,36 +1,36 @@
-Seed: 1669377228
+Seed: 1669546592
 Matrix dim: 1024
-Elapsed time golden: 2499 us
-min: 1.05347e-05 max 1002.25 minPos 771793 maxPos: 511197
-Elapsed time SIMD SSE: 297 us
-Elapsed time SIMD NEON: 262 us
-Seed: 1669377228
+Elapsed time golden: 2508 us
+min: -49.925 max 49.9879 minPos 441892 maxPos: 223135
+Elapsed time SIMD SSE: 291 us
+Elapsed time SIMD NEON: 255 us
+Seed: 1669546592
 Matrix dim: 2048
-Elapsed time golden: 9986 us
-min: 9.36008e-06 max 1004.93 minPos 2385770 maxPos: 3245025
-Elapsed time SIMD SSE: 1184 us
-Elapsed time SIMD NEON: 1022 us
-Seed: 1669377228
+Elapsed time golden: 9985 us
+min: -49.9597 max 49.9879 minPos 3310969 maxPos: 223135
+Elapsed time SIMD SSE: 1164 us
+Elapsed time SIMD NEON: 1025 us
+Seed: 1669546592
 Matrix dim: 4096
-Elapsed time golden: 39872 us
-min: 9.36008e-06 max 1004.93 minPos 2385770 maxPos: 3245025
-Elapsed time SIMD SSE: 4679 us
-Elapsed time SIMD NEON: 4088 us
-Seed: 1669377229
+Elapsed time golden: 39891 us
+min: -49.9772 max 49.9984 minPos 15201594 maxPos: 9540525
+Elapsed time SIMD SSE: 4717 us
+Elapsed time SIMD NEON: 4105 us
+Seed: 1669546592
 Matrix dim: 8192
-Elapsed time golden: 159763 us
-min: 2.35901e-06 max 1004.79 minPos 39227651 maxPos: 46670818
-Elapsed time SIMD SSE: 18695 us
-Elapsed time SIMD NEON: 16396 us
-Seed: 1669377230
+Elapsed time golden: 165110 us
+min: -49.994 max 49.9984 minPos 19007078 maxPos: 9540525
+Elapsed time SIMD SSE: 18686 us
+Elapsed time SIMD NEON: 16389 us
+Seed: 1669546594
 Matrix dim: 16384
-Elapsed time golden: 662816 us
-min: 6.57755e-07 max 1004.91 minPos 244786051 maxPos: 176371640
-Elapsed time SIMD SSE: 74821 us
-Elapsed time SIMD NEON: 65393 us
-Seed: 1669377236
+Elapsed time golden: 687124 us
+min: -49.9928 max 49.9937 minPos 9400083 maxPos: 113464604
+Elapsed time SIMD SSE: 74734 us
+Elapsed time SIMD NEON: 66059 us
+Seed: 1669546599
 Matrix dim: 32768
-Elapsed time golden: 4.31118e+06 us
-min: 1.96079e-07 max 1004.99 minPos 531500796 maxPos: 843231638
-Elapsed time SIMD SSE: 463553 us
-Elapsed time SIMD NEON: 262814 us
+Elapsed time golden: 4.4615e+06 us
+min: -49.994 max 49.9996 minPos 586738538 maxPos: 265540488
+Elapsed time SIMD SSE: 462280 us
+Elapsed time SIMD NEON: 265577 us

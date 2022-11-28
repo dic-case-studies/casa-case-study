@@ -217,8 +217,8 @@ int main(int argc, char **argv)
   std::cout << "Seed: " << seed << std::endl;
   srand(seed);
 
-  float offset = 5.0f;
-  float range = 1000.0f;
+  float range = 100.0;
+  float offset = -50.0;
   for (size_t i = 0; i < N; i++)
   {
     arr[i] = offset + range * (rand() / (float)RAND_MAX);

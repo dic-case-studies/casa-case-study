@@ -63,6 +63,24 @@ benchCASA.sh
 
 ![Stats](./stat/Ryzen5800X/casa-bench-performance.png)
 
+### M1 Pro
+
+1. MinMax with OpenMp and SIMD
+
+![Stats](./stat/m1pro/min-max-bench-performance.png)
+
+2. MinMaxPos with OpenMp and SIMD
+
+![Stats](./stat/m1pro/min-max-pos-bench-performance.png)
+
+3. MinMaxMasked with OpenMp and SIMD
+
+![Stats](./stat/m1pro/min-max-masked-bench-performance.png)
+
+4. Casa benchchmark with Openmp and SIMD
+
+![Stats](./stat/m1pro/casa-bench-performance.png)
+
 ## Energy
 
 ### Ryzen 3700X

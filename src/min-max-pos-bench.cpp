@@ -263,8 +263,8 @@ void simd_neon(float *arr, size_t N, float &min, size_t &minPos, float &max,
 
     arr_r = vld1q_f32(arr + i);
 
-    uint32x4_t min_mask = vcltq_u32(arr_r, min_r);
-    uint32x4_t max_mask = vcgtq_u32(arr_r, max_r);
+    uint32x4_t min_mask = vcltq_f32(arr_r, min_r);
+    uint32x4_t max_mask = vcgtq_f32(arr_r, max_r);
 
     min_r = vminq_f32(min_r, arr_r);
     min_pos_r = vbslq_u32(min_mask, idx_r, min_pos_r);
@@ -346,8 +346,8 @@ int main(int argc, char **argv)
   std::cout << "Seed: " << seed << std::endl;
   srand(seed);
 
-  float offset = 5.0f;
-  float range = 1000.0f;
+  float range = 100.0;
+  float offset = -50.0;
   for (size_t i = 0; i < N; i++)
   {
     arr[i] = offset + range * (rand() / (float)RAND_MAX);
