@@ -1,36 +1,42 @@
-Seed: 1669100385
+Seed: 1669621965
 Matrix dim: 1024
-Elapsed time golden: 2336 us
-min: 5.00133 max 1005
-Elapsed time SIMD SSE: 471 us
-Elapsed time SIMD AVX: 330 us
-Seed: 1669100385
+Elapsed time golden: 2982 us
+min: -50 max 49.9999
+Elapsed time SIMD SSE: 420 us
+Elapsed time SIMD AVX: 354 us
+Elapsed time SIMD Apple: 827 us
+Seed: 1669621965
 Matrix dim: 2048
-Elapsed time golden: 13061 us
-min: 5.0002 max 1005
-Elapsed time SIMD SSE: 2261 us
-Elapsed time SIMD AVX: 1678 us
-Seed: 1669100385
+Elapsed time golden: 12182 us
+min: -50 max 50
+Elapsed time SIMD SSE: 1666 us
+Elapsed time SIMD AVX: 1877 us
+Elapsed time SIMD Apple: 4047 us
+Seed: 1669621965
 Matrix dim: 4096
-Elapsed time golden: 44015 us
-min: 5.00002 max 1005
-Elapsed time SIMD SSE: 5910 us
-Elapsed time SIMD AVX: 4049 us
-Seed: 1669100385
+Elapsed time golden: 51747 us
+min: -50 max 50
+Elapsed time SIMD SSE: 8382 us
+Elapsed time SIMD AVX: 4701 us
+Elapsed time SIMD Apple: 13153 us
+Seed: 1669621965
 Matrix dim: 8192
-Elapsed time golden: 144131 us
-min: 5.00001 max 1005
-Elapsed time SIMD SSE: 22150 us
-Elapsed time SIMD AVX: 15355 us
-Seed: 1669100386
+Elapsed time golden: 173366 us
+min: -50 max 50
+Elapsed time SIMD SSE: 30857 us
+Elapsed time SIMD AVX: 19090 us
+Elapsed time SIMD Apple: 50314 us
+Seed: 1669621966
 Matrix dim: 16384
-Elapsed time golden: 578308 us
-min: 5 max 1005
-Elapsed time SIMD SSE: 96686 us
-Elapsed time SIMD AVX: 65340 us
-Seed: 1669100389
+Elapsed time golden: 671460 us
+min: -50 max 50
+Elapsed time SIMD SSE: 125203 us
+Elapsed time SIMD AVX: 76744 us
+Elapsed time SIMD Apple: 186226 us
+Seed: 1669621969
 Matrix dim: 32768
-Elapsed time golden: 2.37194e+06 us
-min: 5 max 1005
-Elapsed time SIMD SSE: 403510 us
-Elapsed time SIMD AVX: 263103 us
+Elapsed time golden: 5.12966e+06 us
+min: -50 max 50
+Elapsed time SIMD SSE: 426034 us
+Elapsed time SIMD AVX: 291915 us
+Elapsed time SIMD Apple: 721543 us

@@ -23,26 +23,25 @@
 #include <arm_neon.h>
 #endif
 
-void golden(float *arr, size_t N, float &min, float &max)
-{
+#ifdef __APPLE__
+#include <simd/simd.h>
+#endif
+
+void golden(float *arr, size_t N, float &min, float &max) {
   min = FLT_MAX;
   max = FLT_MIN;
-  for (size_t i = 0; i < N; i++)
-  {
-    if (min > arr[i])
-    {
+  for (size_t i = 0; i < N; i++) {
+    if (min > arr[i]) {
       min = arr[i];
     }
-    if (max < arr[i])
-    {
+    if (max < arr[i]) {
       max = arr[i];
     }
   }
 }
 
 #ifdef SSE
-void simd_sse(float *arr, size_t N, float &min, float &max)
-{
+void simd_sse(float *arr, size_t N, float &min, float &max) {
 
   assert(N < (size_t)INT_MAX);
 
@@ -54,8 +53,7 @@ void simd_sse(float *arr, size_t N, float &min, float &max)
   size_t quot = N / simd_width;
   size_t limit = quot * simd_width;
 
-  for (size_t i = simd_width; i < limit; i += simd_width)
-  {
+  for (size_t i = simd_width; i < limit; i += simd_width) {
     arr_r = _mm_loadu_ps(arr + i);
 
     min_r = _mm_min_ps(min_r, arr_r);
@@ -71,27 +69,21 @@ void simd_sse(float *arr, size_t N, float &min, float &max)
   max = max_tmp[0];
   min = min_tmp[0];
 
-  for (int i = 1; i < simd_width; i++)
-  {
-    if (max_tmp[i] > max)
-    {
+  for (int i = 1; i < simd_width; i++) {
+    if (max_tmp[i] > max) {
       max = max_tmp[i];
     }
-    if (min_tmp[i] < min)
-    {
+    if (min_tmp[i] < min) {
       min = min_tmp[i];
     }
   }
 
   // Min max for reminder
-  for (size_t i = limit; i < N; i++)
-  {
-    if (max < arr[i])
-    {
+  for (size_t i = limit; i < N; i++) {
+    if (max < arr[i]) {
       max = arr[i];
     }
-    if (min > arr[i])
-    {
+    if (min > arr[i]) {
       min = arr[i];
     }
   }
@@ -99,8 +91,7 @@ void simd_sse(float *arr, size_t N, float &min, float &max)
 #endif
 
 #ifdef AVX
-void simd_avx(float *arr, size_t N, float &min, float &max)
-{
+void simd_avx(float *arr, size_t N, float &min, float &max) {
 
   assert(N < (size_t)INT_MAX);
 
@@ -112,8 +103,7 @@ void simd_avx(float *arr, size_t N, float &min, float &max)
   size_t quot = N / simd_width;
   size_t limit = quot * simd_width;
 
-  for (size_t i = simd_width; i < limit; i += simd_width)
-  {
+  for (size_t i = simd_width; i < limit; i += simd_width) {
     arr_r = _mm256_loadu_ps(arr + i);
 
     min_r = _mm256_min_ps(min_r, arr_r);
@@ -135,27 +125,21 @@ void simd_avx(float *arr, size_t N, float &min, float &max)
   max = max_tmp[0];
   min = min_tmp[0];
 
-  for (int i = 1; i < simd_width; i++)
-  {
-    if (max_tmp[i] > max)
-    {
+  for (int i = 1; i < simd_width; i++) {
+    if (max_tmp[i] > max) {
       max = max_tmp[i];
     }
-    if (min_tmp[i] < min)
-    {
+    if (min_tmp[i] < min) {
       min = min_tmp[i];
     }
   }
 
   // Min max for reminder
-  for (size_t i = limit; i < N; i++)
-  {
-    if (max < arr[i])
-    {
+  for (size_t i = limit; i < N; i++) {
+    if (max < arr[i]) {
       max = arr[i];
     }
-    if (min > arr[i])
-    {
+    if (min > arr[i]) {
       min = arr[i];
     }
   }
@@ -163,8 +147,7 @@ void simd_avx(float *arr, size_t N, float &min, float &max)
 #endif
 
 #ifdef NEON
-void simd_neon(float *arr, size_t N, float &min, float &max)
-{
+void simd_neon(float *arr, size_t N, float &min, float &max) {
   assert(N < (size_t)INT_MAX);
 
   const int simd_width = 4;
@@ -175,8 +158,7 @@ void simd_neon(float *arr, size_t N, float &min, float &max)
   size_t quot = N / simd_width;
   size_t limit = quot * simd_width;
 
-  for (size_t i = simd_width; i < limit; i += simd_width)
-  {
+  for (size_t i = simd_width; i < limit; i += simd_width) {
     arr_r = vld1q_f32(arr + i);
 
     min_r = vminq_f32(min_r, arr_r);
@@ -188,24 +170,35 @@ void simd_neon(float *arr, size_t N, float &min, float &max)
   min = vminvq_f32(min_r);
 
   // Min max for reminder
-  for (size_t i = limit; i < N; i++)
-  {
-    if (max < arr[i])
-    {
+  for (size_t i = limit; i < N; i++) {
+    if (max < arr[i]) {
       max = arr[i];
     }
-    if (min > arr[i])
-    {
+    if (min > arr[i]) {
       min = arr[i];
     }
   }
 }
 #endif
 
-int main(int argc, char **argv)
-{
-  if (argc < 2)
-  {
+#ifdef __APPLE__
+void simd_apple(float *arr, size_t N, float &min, float &max) {
+  simd::float4 min_v = simd::make_float4(FLT_MAX, FLT_MAX, FLT_MAX, FLT_MAX);
+  simd::float4 max_v = simd::make_float4(FLT_MIN, FLT_MIN, FLT_MIN, FLT_MIN);
+
+  for (size_t i = 0; i < N; i += 4) {
+    simd::float4 v =
+        simd::make_float4(arr[i], arr[i + 1], arr[i + 2], arr[i + 3]);
+    min_v = simd_min(v, min_v);
+    max_v = simd_max(v, max_v);
+  }
+  min = simd_reduce_min(min_v);
+  max = simd_reduce_max(max_v);
+}
+#endif
+
+int main(int argc, char **argv) {
+  if (argc < 2) {
     std::cerr << " usage: ./min-max <N>" << std::endl;
     return 1;
   }
@@ -219,8 +212,7 @@ int main(int argc, char **argv)
 
   float range = 100.0;
   float offset = -50.0;
-  for (size_t i = 0; i < N; i++)
-  {
+  for (size_t i = 0; i < N; i++) {
     arr[i] = offset + range * (rand() / (float)RAND_MAX);
   }
 
@@ -285,6 +277,23 @@ int main(int argc, char **argv)
 #ifdef ASSERT
     assert_float(maxExpected, maxActual, "maxNEON");
     assert_float(minExpected, minActual, "minNEON");
+#endif
+  }
+#endif
+
+#ifdef __APPLE__
+  {
+    float minActual = FLT_MAX, maxActual = FLT_MIN;
+    WallClock t;
+
+    simd_apple(arr, N, minActual, maxActual);
+
+    std::cout << "Elapsed time SIMD Apple: " << t.elapsedTime() << " us"
+              << std::endl;
+
+#ifdef ASSERT
+    assert_float(maxExpected, maxActual, "maxApple");
+    assert_float(minExpected, minActual, "minApple");
 #endif
   }
 #endif
