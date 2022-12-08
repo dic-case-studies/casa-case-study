@@ -1,7 +1,6 @@
 #pragma once
 #include <casacore/casa/Arrays.h>
 #include <climits>
-#include <simd/simd.h>
 
 using casacore::Array;
 using casacore::ArrayConformanceError;
@@ -119,7 +118,7 @@ void minMaxMaskedParallel(T &minVal, T &maxVal, IPosition &minPos,
 }
 
 
-// Implementation of simple minMaxPos function, using SIMD AVX, 
+// Implementation of simple minMaxPosMasked function, using AVX
 #ifdef __AVX__
 void minMaxAVX(const float *arr, const float *weight, size_t N,
                       float &min, size_t &minPos, float &max, size_t &maxPos) {
@@ -208,7 +207,7 @@ void minMaxAVX(const float *arr, const float *weight, size_t N,
 }
 #endif
 
-
+// Implementation of simple minMaxPosMasked function, using NEON, 
 #ifdef __ARM_NEON__
 void minMaxNEON(const float *arr, const float *weight, size_t N, float &min, size_t &minPos, float &max, size_t &maxPos)
 {
@@ -367,7 +366,7 @@ void minMaxMaskedSIMD(T &minVal, T &maxVal, IPosition &minPos,
   maxVal = maxv;
 }
 
-// Implementation of cassacore:minMaxMasked function using SIMD AVX, for data type float
+// Implementation of cassacore:minMaxMasked function using SIMD AVX and NEON, for data type float
 template <typename Alloc>
 void minMaxMaskedSIMD(float &minVal, float &maxVal, IPosition &minPos,
                       IPosition &maxPos, const Array<float, Alloc> &array,

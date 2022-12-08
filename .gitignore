@@ -2,9 +2,11 @@
 /build
 /tests/test-build
 .vscode
+.history
 *app
 /out
 timeBenchmarks.txt
 /scratch
 compile_flags.txt
 scratch*
+stat\ copy/

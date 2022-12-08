@@ -23,7 +23,7 @@ LIBS= -lcasa_casa -lcasa_meas -lcasa_measures
 
 CXX=g++
 
-all: dir build/casa-bench build/min-max-bench build/min-max-pos-bench build/min-max-masked-bench 
+all: dir build/casa-bench build/min-max-bench build/min-max-pos-bench build/min-max-pos-masked-bench 
 
 build/%: src/%.cpp
 	$(CXX) -o $@ $< $(CXXFLAGS) $(ARCH_C_FLAGS) $(CUSTOM_CODE_FLAGS) $(OMPFLAGS) $(LIBS) $(OPT)
