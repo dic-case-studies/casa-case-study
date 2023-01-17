@@ -47,6 +47,6 @@ echo "                                            \
   set logscale y;                                        \
                                                          \
   plot \"stat/$host/$bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
-       \"stat/$host/$bench-stats.csv\" using 1:3 with linespoint title \"SSE\",  \
+       \"stat/$host/$bench-stats.csv\" using 1:3 with linespoint title \"SSE2NEON\",  \
        \"stat/$host/$bench-stats.csv\" using 1:4 with linespoint title \"NEON\";   \
 " | gnuplot > stat/$host/$bench-performance.png
