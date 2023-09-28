@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 
     auto duration = t.elapsedTime();
 
-    std::cout << "Time taken for casacore minMaxMasked: " << duration << " ms"
+    std::cout << "Time taken for casacore minMaxMasked: " << duration << " us"
               << std::endl
               << std::endl;
   }
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
                          matrix, weight);
 
     auto duration = t.elapsedTime();
-    std::cout << "Time taken for openmp minMaxMasked: " << duration << " ms"
+    std::cout << "Time taken for openmp minMaxMasked: " << duration << " us"
               << std::endl;
 
     ///Asserting on openmp results ///
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
                      weight);
 
     auto duration = t.elapsedTime();
-    std::cout << "Time taken for SIMD minMaxMasked: " << duration << " ms"
+    std::cout << "Time taken for SIMD minMaxMasked: " << duration << " us"
               << std::endl;
 
     ///Asserting on SIMD results ///

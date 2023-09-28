@@ -1,89 +1,65 @@
 Matrix dim: 1024
-seed = 1669546811
-Time taken for casacore minMaxMasked: 1579 ms
+seed = 1695893451
+Time taken for casacore minMaxMasked: 1303 us
 
-Time taken for openmp minMaxMasked: 881 ms
+Time taken for openmp minMaxMasked: 917 us
 Assertion passed for openmp
-Time taken for SIMD minMaxMasked: 271 ms
-expectedMinPos : [581, 363]
-actualMinPos : [581, 363]
-expectedMaxPos : [152, 104]
-actualMaxPos : [152, 104]
+Time taken for SIMD minMaxMasked: 232 us
 Assertion passed for SIMD
 
 -----------------------------
 
 Matrix dim: 2048
-seed = 1669546811
-Time taken for casacore minMaxMasked: 6300 ms
+seed = 1695893451
+Time taken for casacore minMaxMasked: 5214 us
 
-Time taken for openmp minMaxMasked: 1808 ms
+Time taken for openmp minMaxMasked: 1819 us
 Assertion passed for openmp
-Time taken for SIMD minMaxMasked: 1027 ms
-expectedMinPos : [290, 1387]
-actualMinPos : [290, 1387]
-expectedMaxPos : [76, 104]
-actualMaxPos : [76, 104]
+Time taken for SIMD minMaxMasked: 885 us
 Assertion passed for SIMD
 
 -----------------------------
 
 Matrix dim: 4096
-seed = 1669546812
-Time taken for casacore minMaxMasked: 25189 ms
+seed = 1695893451
+Time taken for casacore minMaxMasked: 21259 us
 
-Time taken for openmp minMaxMasked: 5625 ms
+Time taken for openmp minMaxMasked: 3931 us
 Assertion passed for openmp
-Time taken for SIMD minMaxMasked: 4199 ms
-expectedMinPos : [545, 2267]
-actualMinPos : [545, 2267]
-expectedMaxPos : [3947, 3790]
-actualMaxPos : [3947, 3790]
+Time taken for SIMD minMaxMasked: 3440 us
 Assertion passed for SIMD
 
 -----------------------------
 
 Matrix dim: 8192
-seed = 1669546812
-Time taken for casacore minMaxMasked: 100624 ms
+seed = 1695893451
+Time taken for casacore minMaxMasked: 87045 us
 
-Time taken for openmp minMaxMasked: 19671 ms
+Time taken for openmp minMaxMasked: 12022 us
 Assertion passed for openmp
-Time taken for SIMD minMaxMasked: 16569 ms
-expectedMinPos : [7171, 1166]
-actualMinPos : [7171, 1166]
-expectedMaxPos : [1973, 7886]
-actualMaxPos : [1973, 7886]
+Time taken for SIMD minMaxMasked: 13959 us
 Assertion passed for SIMD
 
 -----------------------------
 
 Matrix dim: 16384
-seed = 1669546814
-Time taken for casacore minMaxMasked: 413018 ms
+seed = 1695893453
+Time taken for casacore minMaxMasked: 340438 us
 
-Time taken for openmp minMaxMasked: 67215 ms
+Time taken for openmp minMaxMasked: 51856 us
 Assertion passed for openmp
-Time taken for SIMD minMaxMasked: 66123 ms
-expectedMinPos : [7813, 12638]
-actualMinPos : [7813, 12638]
-expectedMaxPos : [15858, 3123]
-actualMaxPos : [15858, 3123]
+Time taken for SIMD minMaxMasked: 54727 us
 Assertion passed for SIMD
 
 -----------------------------
 
 Matrix dim: 32768
-seed = 1669546821
-Time taken for casacore minMaxMasked: 1.98612e+06 ms
+seed = 1695893458
+Time taken for casacore minMaxMasked: 1.70084e+06 us
 
-Time taken for openmp minMaxMasked: 205421 ms
+Time taken for openmp minMaxMasked: 177843 us
 Assertion passed for openmp
-Time taken for SIMD minMaxMasked: 264308 ms
-expectedMinPos : [18923, 11026]
-actualMinPos : [18923, 11026]
-expectedMaxPos : [9121, 4912]
-actualMaxPos : [9121, 4912]
+Time taken for SIMD minMaxMasked: 247988 us
 Assertion passed for SIMD
 
 -----------------------------

@@ -143,7 +143,7 @@ void simd_avx(float *arr, size_t N, float &min, float &max) {
 }
 #endif
 
-#ifdef NEON
+#ifdef __ARM_NEON__
 void simd_neon(float *arr, size_t N, float &min, float &max) {
   assert(N < (size_t)INT_MAX);
 
@@ -261,7 +261,7 @@ int main(int argc, char **argv) {
   }
 #endif
 
-#ifdef NEON
+#ifdef __ARM_NEON__
   {
     float minActual = FLT_MAX, maxActual = FLT_MIN;
     WallClock t;

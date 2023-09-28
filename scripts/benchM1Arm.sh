@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
 
 declare -a SIZE=(1024 2048 4096 8192 16384 32768)
-# declare -a SIZE=(1024 2048 4096 8192)
-# declare -a SIZE=(4)
+
+if [[ $# -ne 2 ]] 
+then
+  echo "Usage: $0 host bench"
+  exit 1
+fi
 
 host=$1
 bench=$2
@@ -31,7 +34,10 @@ cat stat/$host/$bench-result.txt | awk '                          \
   }                                           \
   /Elapsed time SIMD NEON/ {                   \
     neon = $(NF-1);                            \
-    printf("%s, %s, %s, %s\n", size, golden, sse, neon); \
+  }                                           \
+  /Elapsed time SIMD Apple/ {                   \
+    apple_simd = $(NF-1);                            \
+    printf("%s, %s, %s, %s, %s\n", size, golden, sse, neon, apple_simd); \
   }                                           \
 ' > stat/$host/$bench-stats.csv
 
@@ -48,5 +54,6 @@ echo "                                            \
                                                          \
   plot \"stat/$host/$bench-stats.csv\" using 1:2 with linespoint title \"Golden\", \
        \"stat/$host/$bench-stats.csv\" using 1:3 with linespoint title \"SSE2NEON\",  \
-       \"stat/$host/$bench-stats.csv\" using 1:4 with linespoint title \"NEON\";   \
+       \"stat/$host/$bench-stats.csv\" using 1:4 with linespoint title \"NEON\",   \
+       \"stat/$host/$bench-stats.csv\" using 1:5 with linespoint title \"APPLE SIMD\";   \
 " | gnuplot > stat/$host/$bench-performance.png

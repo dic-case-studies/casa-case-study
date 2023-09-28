@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
 
 declare -a SIZE=(1024 2048 4096 8192 16384 32768)
-# declare -a SIZE=(1024 2048 4096 8192)
-# declare -a SIZE=(1024)
+
+if [[ $# -ne 1 ]] 
+then
+  echo "Usage: $0 host"
+  exit 1
+fi
 
 host=$1
-mkdir -p stat/$host
 bench=casa-bench
+mkdir -p stat/$host
 
 outputFile=stat/$host/$bench-result.txt
 
-if [ -f $outputFile ]
+if [[ -f $outputFile ]]
 then
     rm $outputFile
 fi
@@ -40,7 +43,7 @@ cat stat/$host/$bench-result.txt | awk '                          \
   }                                           \
   /Time taken for SIMD minMaxMasked/ {                   \
     SIMD = $(NF-1);                            \
-    printf("%s, %s, %s, %s\n", size, golden, openmp,SIMD); \
+    printf("%s, %s, %s, %s\n", size, golden, openmp, SIMD); \
   }                                           \
 ' > stat/$host/$bench-stats.csv
 
